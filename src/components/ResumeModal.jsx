@@ -15,29 +15,11 @@ function ResumeModal({ onClose }) {
           </button>
         </div>
 
-        <object
-          data="/Rushikesh_Resume.pdf"
+        <embed
+          src="/Rushikesh_Resume.pdf"
           type="application/pdf"
           className="flex-1 w-full"
-        >
-          <div className="flex-1 w-full bg-gray-100 flex items-center justify-center p-6">
-            <div className="text-center">
-              <div className="text-6xl mb-4">📄</div>
-              <p className="text-gray-600 mb-4">
-                PDF preview not supported in your browser
-              </p>
-              <a
-                href="/Rushikesh_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition inline-flex items-center gap-2 font-semibold"
-                download
-              >
-                ⬇️ Download to View
-              </a>
-            </div>
-          </div>
-        </object>
+        />
 
         <div className="p-4 md:p-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white flex flex-col md:flex-row justify-center gap-3 md:gap-4">
           <a
