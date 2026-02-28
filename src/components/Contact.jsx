@@ -42,7 +42,7 @@ function Contact() {
                   href="tel:+918010688148"
                   className="text-base md:text-lg font-semibold text-gray-800 hover:text-blue-600 transition"
                 >
-                  +91 8010688148
+                  +91 8010688184
                 </a>
               </div>
             </div>
