@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure optimal text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove default focus outlines and use custom ones */
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}

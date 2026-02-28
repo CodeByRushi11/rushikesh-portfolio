@@ -38,52 +38,59 @@ function Projects() {
   ];
 
   return (
-    <section id="projects" className="px-10 py-20 bg-white">
-      <h2 className="text-3xl font-bold mb-10 text-blue-600">Projects</h2>
+    <section
+      id="projects"
+      className="px-4 md:px-10 py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white"
+    >
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-10 md:mb-14 text-gray-900 text-center">
+          Featured Projects
+        </h2>
 
-      <div className="grid md:grid-cols-2 gap-8">
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-          >
-            <div className="flex items-start justify-between mb-3">
-              <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition">
-                {project.title}
-              </h3>
-              <span className="text-3xl opacity-20 group-hover:opacity-40 transition">
-                📁
-              </span>
-            </div>
-
-            <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tech.map((tech, i) => (
-                <span
-                  key={i}
-                  className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-medium"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 font-medium hover:text-blue-800 transition"
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="group bg-white border border-gray-200 rounded-xl p-6 md:p-7 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300"
             >
-              View on GitHub
-              <span className="group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </a>
-          </div>
-        ))}
+              <div className="flex items-start justify-between mb-4">
+                <h3 className="text-lg md:text-xl font-bold text-gray-800 group-hover:text-blue-600 transition leading-tight">
+                  {project.title}
+                </h3>
+                <span className="text-2xl md:text-3xl opacity-20 group-hover:opacity-40 transition flex-shrink-0">
+                  📁
+                </span>
+              </div>
+
+              <p className="text-gray-600 text-sm md:text-base mb-5 leading-relaxed">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-5">
+                {project.tech.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="bg-blue-50 text-blue-700 text-xs px-3 py-1.5 rounded-full font-medium border border-blue-200"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-blue-600 font-semibold hover:text-blue-800 transition text-sm md:text-base"
+              >
+                View on GitHub
+                <span className="group-hover:translate-x-1 transition-transform">
+                  →
+                </span>
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

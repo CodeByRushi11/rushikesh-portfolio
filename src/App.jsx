@@ -9,7 +9,8 @@ import Cursor from "./components/Cursor";
 
 function App() {
   return (
-    <div className="bg-white text-gray-800 cursor-none">
+    // hide native cursor so custom cursor is visible
+    <div className="bg-white text-gray-900 scroll-smooth cursor-none">
       <Cursor />
       <Navbar />
       <Hero />

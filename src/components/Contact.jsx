@@ -1,42 +1,79 @@
 function Contact() {
   return (
-    <section id="contact" className="px-10 py-20 bg-gray-50">
-      <h2 className="text-3xl font-bold mb-6 text-blue-600">Contact</h2>
+    <section
+      id="contact"
+      className="px-4 md:px-10 py-16 md:py-20 bg-gradient-to-br from-white to-gray-50"
+    >
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-10 md:mb-12 text-gray-900 text-center">
+          Get In Touch
+        </h2>
 
-      <div className="space-y-3 text-gray-700">
-        <p className="flex items-center gap-2">
-          <span className="text-blue-600">✉️</span>
-          <a
-            href="mailto:rushikeshinogale467@gmail.com"
-            className="hover:text-blue-600"
-          >
-            rushikeshinogale467@gmail.com
-          </a>
-        </p>
-        <p className="flex items-center gap-2">
-          <span className="text-blue-600">📞</span>
-          <a href="tel:+918010688148" className="hover:text-blue-600">
-            +91 8010688148
-          </a>
-        </p>
-      </div>
+        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 border-t-4 border-blue-600">
+          <div className="space-y-5 md:space-y-6 text-gray-700">
+            <div className="flex items-center gap-4 group">
+              <span className="text-2xl md:text-3xl text-blue-600 flex-shrink-0">
+                ✉️
+              </span>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs md:text-sm text-gray-500 font-medium">
+                  Email
+                </p>
+                <a
+                  href="mailto:rushikeshinogale467@gmail.com"
+                  className="text-base md:text-lg font-semibold text-gray-800 hover:text-blue-600 transition break-all"
+                >
+                  rushikeshinogale467@gmail.com
+                </a>
+              </div>
+            </div>
 
-      <div className="mt-6">
-        <div
-          className="badge-base LI-profile-badge"
-          data-locale="en_US"
-          data-size="medium"
-          data-theme="light"
-          data-type="HORIZONTAL"
-          data-vanity="rushikesh-ingole-b02052377"
-          data-version="v1"
-        >
-          <a
-            className="badge-base__link LI-simple-link"
-            href="https://in.linkedin.com/in/rushikesh-ingole-b02052377"
-          >
-            Rushikesh Ingole
-          </a>
+            <div className="h-px bg-gray-200"></div>
+
+            <div className="flex items-center gap-4 group">
+              <span className="text-2xl md:text-3xl text-blue-600 flex-shrink-0">
+                📞
+              </span>
+              <div className="flex-1">
+                <p className="text-xs md:text-sm text-gray-500 font-medium">
+                  Phone
+                </p>
+                <a
+                  href="tel:+918010688148"
+                  className="text-base md:text-lg font-semibold text-gray-800 hover:text-blue-600 transition"
+                >
+                  +91 8010688148
+                </a>
+              </div>
+            </div>
+
+            <div className="h-px bg-gray-200"></div>
+
+            <div className="flex items-center gap-4 group">
+              <span className="text-2xl md:text-3xl text-blue-600 flex-shrink-0">
+                🔗
+              </span>
+              <div className="flex-1">
+                <p className="text-xs md:text-sm text-gray-500 font-medium">
+                  Connect On LinkedIn
+                </p>
+                <a
+                  href="https://in.linkedin.com/in/rushikesh-ingole-b02052377"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base md:text-lg font-semibold text-gray-800 hover:text-blue-600 transition"
+                >
+                  Rushikesh Ingole
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 md:mt-10 text-center">
+          <p className="text-gray-600 font-medium text-sm md:text-base">
+            Feel free to reach out for opportunities or collaborations!
+          </p>
         </div>
       </div>
     </section>
