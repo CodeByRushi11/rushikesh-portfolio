@@ -12,8 +12,10 @@ function Navbar() {
 
   return (
     <nav className="sticky top-0 bg-white/95 backdrop-blur-lg shadow-md z-40 flex justify-between items-center px-6 md:px-10 py-4 border-b border-gray-100">
-      <h1 className="text-2xl font-bold text-blue-600 tracking-tight">
-        Rushikesh Ingole
+      <h1 className="relative text-2xl font-bold tracking-tight cursor-pointer group">
+        <span className="text-blue-600">Rushikesh Ingole</span>
+
+        <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-blue-600 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
       </h1>
 
       {/* Desktop Navigation */}
@@ -29,14 +31,17 @@ function Navbar() {
                 e.preventDefault();
                 handleClick(link);
               }}
-              className={`relative text-gray-700 font-semibold transition-all duration-200 pb-1 ${
+              className={`relative text-gray-700 font-semibold transition-colors duration-300 group ${
                 active === link ? "text-blue-600" : "hover:text-blue-600"
               }`}
             >
               {label}
+
               <span
-                className={`absolute left-0 bottom-0 h-0.5 bg-blue-600 transition-all duration-300 ${
-                  active === link ? "w-full" : "w-0"
+                className={`absolute left-0 -bottom-1 h-[2px] w-full bg-blue-600 transform transition-transform duration-300 origin-left ${
+                  active === link
+                    ? "scale-x-100"
+                    : "scale-x-0 group-hover:scale-x-100"
                 }`}
               />
             </a>
