@@ -32,7 +32,7 @@ function Hero() {
           pauseMs={2000}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight"
         /> */}
-        <RotatingTypewriter
+        {/* <RotatingTypewriter
           texts={[
             "AI & Business Intelligence Analyst",
             "Data Analyst",
@@ -44,6 +44,19 @@ function Hero() {
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
              font-bold mb-6 text-gray-900 leading-tight
              whitespace-nowrap"
+        /> */}
+        <RotatingTypewriter
+          texts={[
+            "AI & Business Intelligence Analyst",
+            "Data Analyst",
+            "React Developer",
+          ]}
+          typingSpeed={80}
+          deletingSpeed={40}
+          pauseMs={2000}
+          className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl 
+                     font-bold mb-6 text-gray-900 leading-tight 
+                     whitespace-normal"
         />
         {/* Subtitle */}
         <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium mb-10">
