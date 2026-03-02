@@ -20,7 +20,14 @@ function Navbar() {
 
       {/* Desktop Navigation */}
       <div className="space-x-8 hidden md:flex">
-        {["#about", "#skills", "#projects", "#contact"].map((link) => {
+        {[
+          "#about",
+          "#education",
+          "#experience",
+          "#skills",
+          "#projects",
+          "#contact",
+        ].map((link) => {
           const label =
             link.substring(1).charAt(0).toUpperCase() + link.substring(2);
           return (

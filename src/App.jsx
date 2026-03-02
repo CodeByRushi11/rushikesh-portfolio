@@ -6,6 +6,8 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
+import Education from "./components/Education";
+import Experience from "./components/Experience";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Navbar />
       <Hero />
       <About />
+      <Education />
+      <Experience />
       <Skills />
       <Projects />
       <Contact />

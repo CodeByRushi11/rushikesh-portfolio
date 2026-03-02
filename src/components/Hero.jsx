@@ -7,63 +7,40 @@ function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 md:px-6 py-20 md:py-0 bg-gradient-to-br from-blue-50 via-white to-white overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 lg:px-12 py-24 bg-gradient-to-br from-blue-50 via-white to-white overflow-hidden">
       {/* Soft Background Accent */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full blur-3xl opacity-30 animate-pulse" />
       <div className="absolute bottom-20 right-10 w-72 h-72 bg-indigo-200 rounded-full blur-3xl opacity-30 animate-pulse" />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Name Badge */}
-        <div className="mb-6">
+      <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Greeting Badge */}
+        <div className="mb-8">
           <span className="px-4 py-1.5 text-sm font-medium bg-blue-100 text-blue-700 rounded-full shadow-sm">
-            👋 Hello, I'm Rushikesh
+            AI • Data Analytics • Business Intelligence
           </span>
         </div>
 
-        {/* Rotating Role */}
-        {/* <RotatingTypewriter
+        {/* Rotating Role (Analytics Only) */}
+        <RotatingTypewriter
           texts={[
             "AI & Business Intelligence Analyst",
             "Data Analyst",
-            "React Developer",
-          ]}
-          typingSpeed={80}
-          deletingSpeed={40}
-          pauseMs={2000}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight"
-        /> */}
-        {/* <RotatingTypewriter
-          texts={[
-            "AI & Business Intelligence Analyst",
-            "Data Analyst",
-            "React Developer",
+            "Analytics & Reporting Specialist",
           ]}
           typingSpeed={80}
           deletingSpeed={40}
           pauseMs={2000}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
-             font-bold mb-6 text-gray-900 leading-tight
-             whitespace-nowrap"
-        /> */}
-        <RotatingTypewriter
-          texts={[
-            "AI & Business Intelligence Analyst",
-            "Data Analyst",
-            "React Developer",
-          ]}
-          typingSpeed={80}
-          deletingSpeed={40}
-          pauseMs={2000}
-          className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl 
-                     font-bold mb-6 text-gray-900 leading-tight 
-                     whitespace-normal"
+                     font-bold mb-8 text-gray-900 leading-tight"
         />
-        {/* Subtitle */}
-        <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium mb-10">
-          Transforming raw data into actionable insights and building scalable
-          web applications that drive business impact.
-        </p>
 
+        {/* Executive Subtitle */}
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-medium mb-12 leading-relaxed">
+          I enjoy working with data and uncovering the stories behind numbers.
+          From cleaning messy datasets to building dashboards and reports, I
+          focus on turning information into insights that help businesses make
+          smarter decisions and grow with confidence.
+        </p>
         {/* CTA Buttons */}
         <div className="flex flex-wrap justify-center gap-4">
           <a
@@ -107,7 +84,7 @@ function Hero() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="mt-16 animate-bounce text-gray-400">
+        <div className="mt-20 animate-bounce text-gray-400">
           <ArrowDownCircle size={32} className="mx-auto" />
         </div>
       </div>
