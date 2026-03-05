@@ -64,7 +64,8 @@ function Hero() {
           </a>
 
           <a
-            href="/Rushikesh_Resume.pdf"
+            // href="/Rushikesh_Resume.pdf"
+            href="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
             target="_blank"
             rel="noopener noreferrer"
             download
