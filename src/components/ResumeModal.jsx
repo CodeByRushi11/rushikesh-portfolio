@@ -34,7 +34,8 @@ function ResumeModal({ onClose }) {
         </div>
 
         <iframe
-          src="/Rushikesh_Resume.pdf"
+          // src="/Rushikesh_Resume.pdf"
+          src="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
           type="application/pdf"
           className="flex-1 w-full border-0"
           title="Resume Preview"
@@ -73,7 +74,8 @@ function ResumeModal({ onClose }) {
 
         <div className="p-4 md:p-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white flex flex-col md:flex-row justify-center gap-3 md:gap-4">
           <a
-            href="/Rushikesh_Resume.pdf"
+            // href="/Rushikesh_Resume.pdf"
+            href="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg hover:bg-blue-700 transition inline-flex items-center justify-center gap-2 shadow-md hover:shadow-lg font-semibold text-sm md:text-base"
