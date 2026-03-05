@@ -51,7 +51,8 @@ function ResumeModal({ onClose }) {
             </p>
             <div className="flex gap-4 justify-center">
               <a
-                href="/Rushikesh_Resume.pdf"
+                // href="/Rushikesh_Resume.pdf"
+                href="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition inline-flex items-center gap-2 font-semibold"
@@ -59,7 +60,8 @@ function ResumeModal({ onClose }) {
                 🔗 Open in New Tab
               </a>
               <a
-                href="/Rushikesh_Resume.pdf"
+                // href="/Rushikesh_Resume.pdf"
+                href="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
                 download
                 className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition inline-flex items-center gap-2 font-semibold"
               >
