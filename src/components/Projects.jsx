@@ -143,6 +143,14 @@ import { Github, ExternalLink, Folder } from "lucide-react";
 function Projects() {
   const analyticsProjects = [
     {
+      title: "Credit Card Financial Analytics Dashboard",
+      description:
+        "Interactive Power BI dashboard analyzing credit card transactions and customer demographics to uncover revenue trends, spending behavior, and business insights.",
+      github:
+        "https://github.com/CodeByRushi11/credit-card-financial-analytics-dashboard",
+      tech: ["Power BI", "DAX", "Power Query", "Data Visualization"],
+    },
+    {
       title: "Superstore Sales Analysis",
       description:
         "Comprehensive sales and profitability analysis using Python to identify regional performance trends, high-value product categories, and revenue optimization opportunities.",
