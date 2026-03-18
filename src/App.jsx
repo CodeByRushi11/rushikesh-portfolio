@@ -8,22 +8,27 @@ import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
 import Education from "./components/Education";
 import Experience from "./components/Experience";
+import { BackToTop } from "./components/BackToTop";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   return (
-    // hide native cursor so custom cursor is visible
-    <div className="bg-white text-gray-900 scroll-smooth cursor-none">
-      <Cursor />
-      <Navbar />
-      <Hero />
-      <About />
-      <Education />
-      <Experience />
-      <Skills />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <ThemeProvider>
+      {/* hide native cursor so custom cursor is visible */}
+      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 scroll-smooth cursor-none transition-colors duration-300">
+        <Cursor />
+        <Navbar />
+        <Hero />
+        <About />
+        <Education />
+        <Experience />
+        <Skills />
+        <Projects />
+        <Contact />
+        <Footer />
+        <BackToTop />
+      </div>
+    </ThemeProvider>
   );
 }
 

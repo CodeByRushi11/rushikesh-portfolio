@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./styles/animations.css";
 
 /* Smooth scrolling for anchor links */
 html {
@@ -16,10 +17,63 @@ body {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
 }
-@import "tailwindcss";
+
+/* Respect prefers-reduced-motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 @theme {
   --animate-blink: blink 1s step-end infinite;
+  --animate-fadeIn: fadeIn 0.5s ease-out forwards;
+  --animate-fadeInUp: fadeInUp 0.5s ease-out forwards;
+  --animate-fadeInDown: fadeInDown 0.5s ease-out forwards;
+  --animate-fadeInLeft: fadeInLeft 0.5s ease-out forwards;
+  --animate-fadeInRight: fadeInRight 0.5s ease-out forwards;
+  --animate-slideInUp: slideInUp 0.5s ease-out forwards;
+  --animate-slideInDown: slideInDown 0.5s ease-out forwards;
+  --animate-slideInLeft: slideInLeft 0.5s ease-out forwards;
+  --animate-slideInRight: slideInRight 0.5s ease-out forwards;
+  --animate-scaleIn: scaleIn 0.5s ease-out forwards;
+  --animate-zoomIn: zoomIn 0.5s ease-out forwards;
+  --animate-rotateIn: rotateIn 0.5s ease-out forwards;
+  --animate-flipIn: flipIn 0.6s ease-out forwards;
+  --animate-flipInX: flipInX 0.6s ease-out forwards;
+  --animate-bounceIn: bounceIn 0.6s ease-out forwards;
+  --animate-shimmer: shimmer 2s infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulseGlow: pulseGlow 2s infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-gradientShift: gradientShift 3s ease infinite;
+  --animate-textGradientShift: textGradientShift 3s ease infinite;
+  --animate-tilt3D: tilt3D 0.3s ease-out forwards;
+  --animate-card3DHover: card3DHover 0.4s ease-out forwards;
+  --animate-shine: shine 3s ease-in-out infinite;
+  --animate-parallaxFloat: parallaxFloat 0.5s ease-out forwards;
+
+  --duration-75: 75ms;
+  --duration-100: 100ms;
+  --duration-150: 150ms;
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --duration-700: 700ms;
+  --duration-1000: 1000ms;
+
+  --delay-0: 0ms;
+  --delay-75: 75ms;
+  --delay-100: 100ms;
+  --delay-150: 150ms;
+  --delay-200: 200ms;
+  --delay-300: 300ms;
+  --delay-500: 500ms;
 
   @keyframes blink {
     50% {
