@@ -143,6 +143,14 @@ import { Github, ExternalLink, Folder } from "lucide-react";
 function Projects() {
   const analyticsProjects = [
     {
+      title: "Chocolate Sales Analysis Power BI Dashboard",
+      description:
+        "Interactive Power BI dashboard analyzing large-scale chocolate sales data to track revenue, profit, trends, and business performance across products, customers, and regions.",
+      github:
+        "https://github.com/CodeByRushi11/Chocolate-Sales-Analysis-Power-BI-Dashboard",
+      tech: ["Power BI", "DAX", "Power Query", "Data Modeling"],
+    },
+    {
       title: "Credit Card Financial Analytics Dashboard",
       description:
         "Interactive Power BI dashboard analyzing credit card transactions and customer demographics to uncover revenue trends, spending behavior, and business insights.",
