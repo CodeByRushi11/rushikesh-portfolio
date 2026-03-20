@@ -1,98 +1,120 @@
 import { useState } from "react";
+import { Download, ExternalLink, X } from "lucide-react";
+import { addRipple } from "../hooks/useRipple";
 
-function ResumeModal({ onClose }) {
+const PDF = "/Rushikesh_ResumeAI Business Intellegence Analyst.pdf";
+
+export default function ResumeModal({ onClose }) {
   const [closing, setClosing] = useState(false);
 
-  const handleClose = () => {
+  const close = () => {
     setClosing(true);
-    // wait for animation before calling parent onClose
-    setTimeout(onClose, 300);
+    setTimeout(onClose, 320);
   };
 
   return (
     <div
-      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm transition-opacity duration-300 ${
-        closing ? "opacity-0" : "opacity-100"
-      }`}
+      onClick={e => e.target === e.currentTarget && close()}
+      style={{
+        position: "fixed", inset: 0,
+        background: "var(--overlay)",
+        backdropFilter: "blur(12px)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        zIndex: 9000, padding: 20,
+        opacity: closing ? 0 : 1,
+        transition: "opacity 0.3s ease",
+      }}
     >
-      <div
-        className={`bg-white rounded-xl shadow-2xl w-full max-w-4xl h-[85vh] md:h-[80vh] flex flex-col transition-transform duration-300 ${
-          closing ? "scale-95 opacity-0" : "scale-100 opacity-100"
-        }`}
-      >
-        <div className="flex justify-between items-center p-4 md:p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
-          <h3 className="text-xl md:text-2xl font-bold text-gray-800">
-            Resume Preview
-          </h3>
+      <div style={{
+        background: "var(--bg2)", border: "1px solid var(--border)",
+        borderRadius: 20, width: "100%", maxWidth: 900,
+        height: "88vh", display: "flex", flexDirection: "column",
+        boxShadow: "0 32px 80px rgba(0,0,0,0.6)",
+        transform: closing ? "scale(0.95) translateY(20px)" : "scale(1)",
+        opacity: closing ? 0 : 1,
+        transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
+        animation: closing ? "none" : "zoomIn 0.35s cubic-bezier(0.16,1,0.3,1) both",
+        overflow: "hidden",
+      }}>
+        {/* Header */}
+        <div style={{
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          padding: "18px 24px", borderBottom: "1px solid var(--border)",
+          background: "var(--bg3)",
+        }}>
+          <div>
+            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "var(--text)", margin: 0, letterSpacing: "-0.02em" }}>
+              Resume Preview
+            </h3>
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text3)", margin: "2px 0 0", letterSpacing: "0.06em" }}>
+              Rushikesh Ingole — AI & BI Analyst
+            </p>
+          </div>
           <button
-            onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600 text-3xl font-light transition p-2 hover:bg-gray-100 rounded flex-shrink-0"
-            aria-label="Close modal"
+            onClick={close}
+            data-hover
+            style={{
+              width: 36, height: 36, borderRadius: 10,
+              background: "var(--surface)", border: "1px solid var(--border)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer", color: "var(--text2)",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "var(--surface-h)"; e.currentTarget.style.color = "var(--text)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "var(--surface)"; e.currentTarget.style.color = "var(--text2)"; }}
           >
-            ×
+            <X size={16} />
           </button>
         </div>
 
+        {/* PDF */}
         <iframe
-          // src="/Rushikesh_Resume.pdf"
-          src="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
-          type="application/pdf"
-          className="flex-1 w-full border-0"
-          title="Resume Preview"
+          src={PDF}
+          title="Resume"
+          style={{ flex: 1, border: "none", background: "#fff" }}
         />
 
-        <div className="flex-1 w-full bg-gray-50 flex items-center justify-center p-6 hidden">
-          <div className="text-center">
-            <div className="text-6xl mb-4">📄</div>
-            <h4 className="text-xl font-bold text-gray-800 mb-4">
-              Rushikesh_Resume.pdf
-            </h4>
-            <p className="text-gray-600 mb-6">
-              Open resume in a new window or download to your device
-            </p>
-            <div className="flex gap-4 justify-center">
-              <a
-                // href="/Rushikesh_Resume.pdf"
-                href="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition inline-flex items-center gap-2 font-semibold"
-              >
-                🔗 Open in New Tab
-              </a>
-              <a
-                // href="/Rushikesh_Resume.pdf"
-                href="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
-                download
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition inline-flex items-center gap-2 font-semibold"
-              >
-                ⬇️ Download
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-4 md:p-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white flex flex-col md:flex-row justify-center gap-3 md:gap-4">
+        {/* Footer */}
+        <div style={{
+          display: "flex", gap: 12, justifyContent: "flex-end",
+          padding: "14px 20px", borderTop: "1px solid var(--border)",
+          background: "var(--bg3)",
+        }}>
           <a
-            // href="/Rushikesh_Resume.pdf"
-            href="/Rushikesh_ResumeAI Business Intellegence Analyst.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg hover:bg-blue-700 transition inline-flex items-center justify-center gap-2 shadow-md hover:shadow-lg font-semibold text-sm md:text-base"
-            download
+            href={PDF}
+            target="_blank" rel="noopener noreferrer"
+            className="btn"
+            onClick={e => addRipple(e, "rgba(255,255,255,0.2)")}
+            data-hover
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              padding: "10px 20px", borderRadius: 10,
+              background: "var(--surface)", border: "1px solid var(--border)",
+              color: "var(--text)", fontFamily: "var(--font-display)", fontWeight: 700,
+              fontSize: 13, textDecoration: "none",
+            }}
           >
-            ⬇️ Download Resume
+            <ExternalLink size={14} /> Open
           </a>
-          <button
-            onClick={handleClose}
-            className="bg-gray-200 text-gray-800 px-6 md:px-8 py-2.5 md:py-3 rounded-lg hover:bg-gray-300 transition font-semibold text-sm md:text-base"
+          <a
+            href={PDF}
+            download
+            className="btn"
+            onClick={e => addRipple(e, "rgba(255,255,255,0.2)")}
+            data-hover
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              padding: "10px 20px", borderRadius: 10,
+              background: "var(--grad-main)", backgroundSize: "200%",
+              color: "#fff", fontFamily: "var(--font-display)", fontWeight: 700,
+              fontSize: 13, textDecoration: "none",
+              boxShadow: "0 4px 16px rgba(0,212,255,0.2)",
+            }}
           >
-            Close
-          </button>
+            <Download size={14} /> Download
+          </a>
         </div>
       </div>
     </div>
   );
 }
-
-export default ResumeModal;

@@ -1,60 +1,72 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
-const Cursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
+export default function Cursor() {
+  const outerRef = useRef(null);
+  const innerRef = useRef(null);
+  const pos = useRef({ x: 0, y: 0 });
+  const outerPos = useRef({ x: 0, y: 0 });
+  const rafRef = useRef(null);
 
   useEffect(() => {
-    // Check if device is touchscreen
-    const isTouchDevice = () => {
-      return (
-        window.matchMedia("(hover: none)").matches ||
-        (navigator.maxTouchPoints !== undefined && navigator.maxTouchPoints > 0)
-      );
+    const isTouchDevice = window.matchMedia("(hover:none)").matches || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) return;
+
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    if (!outer || !inner) return;
+
+    outer.style.opacity = "0";
+    inner.style.opacity = "0";
+
+    const move = (e) => {
+      pos.current = { x: e.clientX, y: e.clientY };
+      inner.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
+      outer.style.opacity = "1";
+      inner.style.opacity = "1";
+
+      const t = e.target;
+      const isHover = !!t.closest("a,button,[role='button'],input,textarea,label,[data-hover]");
+      outer.classList.toggle("hover", isHover);
+      inner.classList.toggle("hover", isHover);
     };
 
-    if (isTouchDevice()) return; // Don't show cursor on touch devices
-
-    const moveCursor = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
+    const mousedown = () => {
+      outer.classList.add("click");
+      inner.classList.add("click");
+    };
+    const mouseup = () => {
+      outer.classList.remove("click");
+      inner.classList.remove("click");
     };
 
-    const hideCursor = () => {
-      setIsVisible(false);
+    // Smooth outer follow
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const loop = () => {
+      outerPos.current.x = lerp(outerPos.current.x, pos.current.x, 0.12);
+      outerPos.current.y = lerp(outerPos.current.y, pos.current.y, 0.12);
+      outer.style.transform = `translate(${outerPos.current.x - 18}px, ${outerPos.current.y - 18}px)`;
+      rafRef.current = requestAnimationFrame(loop);
     };
+    rafRef.current = requestAnimationFrame(loop);
 
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseleave", hideCursor);
-    window.addEventListener("mouseenter", () => setIsVisible(true));
+    window.addEventListener("mousemove", move, { passive: true });
+    window.addEventListener("mousedown", mousedown);
+    window.addEventListener("mouseup", mouseup);
+    window.addEventListener("mouseleave", () => { outer.style.opacity="0"; inner.style.opacity="0"; });
+    window.addEventListener("mouseenter", () => { outer.style.opacity="1"; inner.style.opacity="1"; });
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseleave", hideCursor);
-      window.removeEventListener("mouseenter", () => setIsVisible(true));
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mousedown", mousedown);
+      window.removeEventListener("mouseup", mouseup);
+      cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
-  if (!isVisible) return null;
-
   return (
     <>
-      {/* Outer ring */}
-      <div
-        className="fixed top-0 left-0 w-8 h-8 border-2 border-blue-500 rounded-full pointer-events-none z-[9999] transition-transform duration-100 ease-out"
-        style={{
-          transform: `translate(${position.x - 16}px, ${position.y - 16}px)`,
-        }}
-      />
-      {/* Inner dot */}
-      <div
-        className="fixed top-0 left-0 w-2.5 h-2.5 bg-blue-600 rounded-full pointer-events-none z-[9999] transition-transform duration-75"
-        style={{
-          transform: `translate(${position.x - 5}px, ${position.y - 5}px)`,
-        }}
-      />
+      <div ref={outerRef} className="cursor-outer" />
+      <div ref={innerRef} className="cursor-inner" />
     </>
   );
-};
-
-export default Cursor;
+}

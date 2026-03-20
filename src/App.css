@@ -1,24 +1,21 @@
-/* App global styles - most styling is handled by Tailwind CSS */
+/* Global overrides — main styles live in index.css */
+html { scroll-behavior: smooth; }
 
-/* Custom animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Ensure proper text rendering */
 body {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
+
+/* Transition all theme-driven colors smoothly */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default button styles */
+button { font-family: inherit; }
+
+/* cursor-none hides native cursor */
+.cursor-none { cursor: none !important; }
+.cursor-none * { cursor: none !important; }

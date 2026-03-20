@@ -1,57 +1,109 @@
-import { GraduationCap, Calendar } from "lucide-react";
+import { GraduationCap, Trophy, Calendar, Award } from "lucide-react";
 
-function Education() {
+export default function Education() {
   return (
-    <section id="education" className="px-4 md:px-10 py-20 bg-white">
-      <div className="max-w-5xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Education
+    <section id="education" style={{ background: "var(--bg)", padding: "100px 24px" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: 72 }} data-reveal="up">
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 16,
+            fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.15em",
+            color: "var(--accent)", textTransform: "uppercase",
+          }}>
+            <GraduationCap size={12} /> Education
+          </div>
+          <h2 style={{
+            fontFamily: "var(--font-display)", fontWeight: 800,
+            fontSize: "clamp(32px, 5vw, 52px)", letterSpacing: "-0.04em",
+            color: "var(--text)", lineHeight: 1.1,
+          }}>
+            Academic <span className="grad-text">Foundation</span>
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mt-4 rounded-full" />
+          <div className="section-line" style={{ margin: "20px auto 0" }} />
         </div>
 
-        {/* Education Card */}
-        <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300">
-          <div className="flex items-start gap-4">
-            <GraduationCap className="w-8 h-8 text-blue-600" />
+        {/* Card */}
+        <div
+          className="glass"
+          data-reveal="scale"
+          style={{ borderRadius: 24, padding: "48px 40px", position: "relative", overflow: "hidden" }}
+        >
+          {/* Big decorative number */}
+          <div style={{
+            position: "absolute", top: -20, right: 24,
+            fontFamily: "var(--font-display)", fontWeight: 800,
+            fontSize: 140, lineHeight: 1,
+            color: "var(--border)", userSelect: "none",
+            letterSpacing: "-0.08em",
+          }}>
+            BCA
+          </div>
 
-            <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-800">
-                Bachelor of Computer Application (BCA)
-              </h3>
-
-              <p className="text-gray-700 font-medium mt-1">
-                Santaji Mahavidyalaya, Nagpur
-              </p>
-
-              <div className="flex items-center gap-3 text-sm text-gray-500 mt-2">
-                <Calendar className="w-4 h-4" />
-                <span>September 2021 – June 2024</span>
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full font-semibold">
-                  85%
-                </span>
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 20, marginBottom: 28 }}>
+              {/* Icon */}
+              <div style={{
+                width: 56, height: 56, borderRadius: 16, flexShrink: 0,
+                background: "var(--grad-main)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                boxShadow: "0 8px 24px rgba(0,212,255,0.2)",
+              }} className="anim-float">
+                <GraduationCap size={26} color="#fff" />
               </div>
 
-              <p className="mt-3 text-sm font-semibold text-blue-700">
-                Secured 7th Rank at Rashtrasant Tukadoji Maharaj Nagpur
-                University (RTMNU)
-              </p>
-
-              <p className="mt-4 text-gray-600 text-sm leading-relaxed">
-                Built a strong foundation in programming, database management,
-                data structures, and analytical problem-solving. Developed
-                technical proficiency in software development and data handling,
-                forming the basis for advanced work in analytics and business
-                intelligence.
-              </p>
+              <div>
+                <h3 style={{
+                  fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 24,
+                  color: "var(--text)", marginBottom: 4, letterSpacing: "-0.03em",
+                }}>
+                  Bachelor of Computer Application
+                </h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "var(--text2)", fontWeight: 400 }}>
+                  Santaji Mahavidyalaya, Nagpur
+                </p>
+              </div>
             </div>
+
+            {/* Meta row */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 28 }}>
+              {[
+                { Icon: Calendar, text: "September 2021 – June 2024" },
+                { Icon: Award, text: "85% Score", accent: true },
+                { Icon: Trophy, text: "7th Rank — RTMNU", accent: true },
+              ].map(({ Icon, text, accent }) => (
+                <span
+                  key={text}
+                  style={{
+                    display: "inline-flex", alignItems: "center", gap: 8,
+                    padding: "8px 16px", borderRadius: 100,
+                    background: accent ? "rgba(0,212,255,0.08)" : "var(--surface)",
+                    border: `1px solid ${accent ? "var(--border-h)" : "var(--border)"}`,
+                    fontFamily: "var(--font-mono)", fontSize: 12,
+                    color: accent ? "var(--accent)" : "var(--text2)",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  <Icon size={13} />
+                  {text}
+                </span>
+              ))}
+            </div>
+
+            <p style={{
+              fontFamily: "var(--font-body)", fontWeight: 300,
+              fontSize: 15, lineHeight: 1.8, color: "var(--text2)",
+              borderLeft: "2px solid var(--border-h)", paddingLeft: 20,
+            }}>
+              Built a strong foundation in programming, database management, data structures,
+              and analytical problem-solving. Developed technical proficiency in software
+              development and data handling, forming the basis for advanced work in analytics
+              and business intelligence.
+            </p>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-export default Education;

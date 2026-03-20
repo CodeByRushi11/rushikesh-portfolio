@@ -1,236 +1,135 @@
-# Rushikesh Ingole Portfolio Website
+# Rushikesh Ingole — Industry-Level Portfolio
 
-Personal portfolio showcasing the skills, projects, and contact information of **Rushikesh Ingole**, an aspiring AI & Business Intelligence Analyst, Data Analyst, and React Developer based in Nagpur, India.
+> **Premium React portfolio** for Rushikesh Ingole, AI & Business Intelligence Analyst.  
+> Built for impact — engineered to keep visitors engaged.
 
-This repository contains the source code for a responsive single-page application built with **React** and **Vite**, styled using **Tailwind CSS**, and enhanced with interactive components and animations.
+---
+
+## ✨ Design Philosophy
+
+**Aesthetic Direction:** Dark-first luxury tech — deep navy blacks, electric cyan accent (`#00d4ff`), indigo gradient, warm orange highlight. Premium font pairing of **Syne** (display) + **DM Sans** (body) + **JetBrains Mono** (code/labels). Every element intentional, nothing generic.
 
 ---
 
 ## 🚀 Features
 
-- Clean and modern UI with Tailwind CSS and custom animations
-- Animated rotating typewriter effect showcasing professional roles
-- Resume preview modal and downloadable PDF
-- Responsive sections: About, Skills, Projects, Contact
-- Contact card with email, phone, and LinkedIn links
-- Projects gallery with GitHub links and live demos
-- Smooth scrolling navigation and custom cursor
-- Built-in dark/light gradients and hover effects
+### 🌗 Theme System
+- Dark (default) / Light mode with single click toggle in navbar
+- Flash-free via inline `<script>` in `index.html`
+- Persists via `localStorage`, respects `prefers-color-scheme`
+- Full CSS variable system — every color, shadow, background adapts
 
-## � Section Breakdown
+### 🎬 Animation System — Complete List
 
-The single-page layout is divided into self-contained sections that highlight different aspects of the portfolio:
+| Category | Animations Used |
+|---|---|
+| **Entrance** | `fadeUp`, `fadeLeft`, `fadeRight`, `zoomIn`, `bounceIn`, `flipX` |
+| **Scroll Reveal** | `IntersectionObserver` — `fade-up`, `fade-left`, `fade-right`, `scale`, `flip` |
+| **Stagger** | Sequential child reveal (0.07s per child, up to 8 children) |
+| **Continuous** | `float`, `floatX`, `spin`, `spinReverse`, `pulse`, `pulseGlow`, `morphBg`, `heartbeat`, `swing`, `waveBar`, `gradientShift`, `marquee` |
+| **Text** | `Typewriter` (type + delete loop), `gradientShift` on headline, `glitch` on hover (logo) |
+| **Interaction** | `ripple` (click), magnetic hover `translateY + scale`, `3D tilt` (cards), `border-h` glow on hover |
+| **Progress** | Skill bar fills (`scaleX` + `IntersectionObserver`), timeline draw line animation |
+| **Page** | Loading screen (dual spinner + wave bars), scroll progress bar (gradient), `pageTransition` |
+| **Cursor** | Lerp-smoothed outer ring, instant inner dot, hover expand, click shrink, `mix-blend-mode: exclusion` |
+| **SVG** | Wave divider, `drawLine` stroke animation in footer |
+| **Background** | Canvas particle network (mouse repel, connections), morphing blob gradients |
+| **Special** | Tab switch fade, project card 3D lift, footer social icon color swap, timeline progress line |
 
-### Hero
-
-- Greeting badge (“👋 Hello, I'm Rushikesh”), rotating typewriter effect showcasing roles (AI & Business Intelligence Analyst, Data Analyst, React Developer).
-- Subtitle summarizing mission: transforming data into insights and building impactful web apps.
-- Call‑to‑action buttons linking to GitHub, LinkedIn, downloadable resume, and a preview modal.
-- Animated scroll indicator prompting users to explore further.
-
-### About
-
-- Short bio emphasizing current training at MIDC Skill Development Center in AI, Data Science, SQL, Python, and BI tools.
-- Location and career goals.
-- Highlight icons for Data Analytics, Business Intelligence, AI/ML, and Nagpur.
-- Core strengths list (data cleaning, SQL optimization, dashboarding, frontend development, problem solving).
-
-### Skills
-
-- Grid of categorized skill cards: Programming Languages, Data Analysis & Visualization, Web Development, Version Control.
-- Each card includes relevant technologies (e.g., Python, SQL, Power BI, React, Git).
-
-### Projects
-
-- Gallery of featured projects with titles, descriptions, tech stacks, GitHub links, and live demos when available.
-- Includes both data analytics work and web development applications.
-
-### Contact
-
-- Contact card with email, phone, and LinkedIn information, each with an icon.
-- Final note inviting opportunities in AI, Data Analytics, and Business Intelligence.
-
-## 📊 Skills & Expertise
-
-### Programming Languages
-
-- **Python** – Data manipulation, analysis, scripting, and automation
-- **JavaScript** – Web development, interactive features, and front-end logic
-- **SQL** – Database querying, optimization, and KPI generation
-
-### Data Analysis & Visualization
-
-- **Power BI** – Interactive dashboards, KPI tracking, and business intelligence reporting
-- **Pandas** – Data cleaning, transformation, and exploratory data analysis
-- **NumPy** – Numerical computations and array operations
-- **Matplotlib** – Statistical visualization and charting
-- **Seaborn** – Advanced data visualization with statistical Graphics
-- **Excel** – Pivot tables, pivot charts, dashboards, and financial analysis
-
-### Web Development
-
-- **React.js** – Component-based architecture, hooks, state management, and dynamic UIs
-- **HTML** – Semantic markup and accessibility
-- **CSS** – Styling, layouts, animations, and responsive design
-- **Tailwind CSS** – Utility-first CSS framework for rapid UI development
-
-### Version Control & Tools
-
-- **Git** – Version control, branching, and collaboration
-- **GitHub** – Repository management, project hosting, and code sharing
+### 🎨 Visual Details
+- **Canvas particle network** in Hero — interactive, mouse-repel, auto-connecting
+- **Morphing blob** backgrounds with CSS `border-radius` keyframes
+- **Noise texture** overlay for depth and richness
+- **Custom CSS scrollbar** — 4px accent-colored
+- **Glow border** on cards and buttons (animated gradient border on hover)
+- **Wave SVG divider** between sections
+- **Ticker/marquee** tech strip in About section
+- **Timeline** with animated progress line in Experience
+- **Animated skill bars** that fill on scroll
 
 ---
 
-## 📦 Featured Projects
+## 📁 File Structure
 
-Comprehensive overview of all projects with descriptions, technologies, and links:
-
-### 1. Superstore Sales Data Analysis
-
-- **Description:** End-to-end exploratory data analysis using Python, Pandas, NumPy, and Matplotlib to uncover sales, profit, and regional trends.
-- **Tech Stack:** Python, Pandas, NumPy, Matplotlib
-- **GitHub:** [superstore-data-analysis](https://github.com/CodeByRushi11/superstore-data-analysis)
-
-### 2. Grocery Inventory Data Analytics
-
-- **Description:** Data cleaning, SQL querying, KPI generation, and inventory optimization analysis using Python and SQL.
-- **Tech Stack:** Python, SQL, Pandas
-- **GitHub:** [grocery-inventory-analysis](https://github.com/CodeByRushi11/grocery-inventory-analysis)
-
-### 3. Diwali Sales Analysis
-
-- **Description:** Data cleaning and EDA on festive season sales dataset. Analyzed demographics, state-wise sales, and purchasing behavior patterns.
-- **Tech Stack:** Python, Pandas, NumPy, Matplotlib, Seaborn
-- **GitHub:** [Diwali-Sales-Analysis](https://github.com/CodeByRushi11/Diwali-Sales-Analysis)
-
-### 4. Simple & Scientific Calculator
-
-- **Description:** Beginner-friendly Python GUI calculator built with Tkinter supporting arithmetic and scientific functions (sin, cos, log, sqrt, factorial).
-- **Tech Stack:** Python, Tkinter, Math Module
-- **GitHub:** [Simple-Scientific-Calculator](https://github.com/CodeByRushi11/Simple-Scientific-Calculator.git)
-
-### 5. Vrinda Store Sales Analysis (Excel)
-
-- **Description:** Retail sales analysis using Excel pivot tables, pivot charts, and dashboards to identify trends and performance metrics.
-- **Tech Stack:** Excel, Pivot Tables, Dashboard
-- **GitHub:** [Vrinda-Store-Excel-Data-Analysis](https://github.com/CodeByRushi11/Vrinda-Store-Excel-Data-Analysis)
-
-### 6. Todo Master ⭐ (Featured)
-
-- **Description:** Modern responsive task management application with due dates, edit functionality, smart status indicators (Overdue, Today, Tomorrow), and persistent local storage.
-- **Tech Stack:** React, Tailwind CSS, JavaScript, LocalStorage
-- **GitHub:** [Todo-master-with-Deepseek-Ai](https://github.com/CodeByRushi11/Todo-master-with-Deepseek-Ai.git)
-- **Live Demo:** [todoappusingdeepseekai.netlify.app](https://todoappusingdeepseekai.netlify.app/)
-
-### 7. Single Vendor Task App
-
-- **Description:** Authentication-based React application with login, forgot password, dashboard routing, and structured post-login navigation.
-- **Tech Stack:** React, Vite, Routing
-- **GitHub:** [Single-vender-task1](https://github.com/CodeByRushi11/Single-vender-task1)
-- **Live Demo:** [single-vender-task1.netlify.app](https://single-vender-task1.netlify.app/)
+```
+├── index.html                          ← Root (flash-free theme init, premium fonts, SEO)
+├── public/
+│   └── favicon.svg                     ← Custom bar chart + trend line analytics icon
+└── src/
+    ├── index.css                       ← Full design system: variables, keyframes, all classes
+    ├── App.css                         ← Global resets + cursor-none
+    ├── main.jsx                        ← React entry point
+    ├── App.jsx                         ← Root layout with ThemeProvider
+    ├── context/
+    │   └── ThemeContext.jsx            ← Dark/light state, localStorage, toggle
+    ├── hooks/
+    │   ├── useScrollReveal.js         ← IntersectionObserver for all scroll animations
+    │   └── useRipple.js               ← Ripple click effect utility
+    └── components/
+        ├── Navbar.jsx                  ← Fixed nav, active section tracking, theme toggle, glitch logo
+        ├── Hero.jsx                    ← Canvas particles, morphing blobs, typewriter, stats row
+        ├── About.jsx                   ← Ticker marquee, reveal animations, numbered competency list
+        ├── Education.jsx               ← Timeline card with decorative BCA watermark
+        ├── Experience.jsx              ← Animated timeline with progress line, dot indicators
+        ├── Skills.jsx                  ← Animated progress bars, tool icon cloud, 4-column grid
+        ├── Projects.jsx                ← Tab switcher, 3D hover cards, featured badges, ripple links
+        ├── Contact.jsx                 ← Slide contact cards, CTA panel, morphing blob bg
+        ├── Footer.jsx                  ← Wave SVG divider, status badge, heartbeat icon
+        ├── Cursor.jsx                  ← Lerp-smoothed cursor, hover/click states, blend mode
+        ├── RotatingTypewriter.jsx      ← Type + delete loop with blinking cursor
+        ├── ResumeModal.jsx             ← Backdrop blur modal, zoom animation, PDF preview
+        ├── LoadingScreen.jsx           ← Dual ring spinner, wave bars, fade out
+        ├── ScrollProgress.jsx          ← Gradient top progress bar
+        └── BackToTop.jsx               ← Floating button, fades in at 500px scroll
+```
 
 ---
 
-## �🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-- **Framework:** React (with hooks)
-- **Bundler:** Vite
-- **Styling:** Tailwind CSS
-- **Icons:** lucide-react
-- **Languages:** JavaScript (ES6+), JSX
+| Layer | Technology |
+|---|---|
+| Framework | React 18 |
+| Bundler | Vite |
+| Styling | Tailwind CSS v4 + CSS variables |
+| Fonts | Syne + DM Sans + JetBrains Mono |
+| Icons | lucide-react |
+| Animations | CSS keyframes + IntersectionObserver + Canvas API |
+| Theme | CSS custom properties + localStorage |
 
-## 📁 Project Structure
-
-```
-├── public/                # static assets (resume PDF, favicon)
-├── src/
-│   ├── assets/            # images, icons, etc.
-│   ├── components/        # reusable React components
-│   ├── App.jsx            # main application component
-│   ├── main.jsx           # entry point
-│   └── index.css          # base styles
-├── index.html
-├── package.json
-├── vite.config.js
-└── README.md             # this file
-```
+---
 
 ## 🧩 Getting Started
 
-1. **Clone the repository**
+```bash
+# Clone
+git clone https://github.com/CodeByRushi11/rushikesh-portfolio.git
+cd rushikesh-portfolio
 
-   ```bash
-   git clone https://github.com/CodeByRushi11/rushikesh-portfolio.git
-   cd rushikesh-portfolio
-   ```
+# Install
+npm install
 
-2. **Install dependencies**
+# Dev
+npm run dev         # http://localhost:5173
 
-   ```bash
-   npm install
-   ```
+# Build
+npm run build
 
-3. **Run in development mode**
-
-   ```bash
-   npm run dev
-   ```
-
-   Visit `http://localhost:5173` (or the port shown) to view the site locally.
-
-4. **Build for production**
-
-   ```bash
-   npm run build
-   ```
-
-   The optimized output will be in the `dist/` folder.
-
-5. **Preview the production build**
-   ```bash
-   npm run preview
-   ```
-
-## 📌 Deployment
-
-The site can be deployed to any static host such as Netlify, Vercel, GitHub Pages, or Firebase Hosting. Simply point the host to the `dist/` directory generated by the build step.
-
-## � About Rushikesh Ingole
-
-**Rushikesh Ingole** is an aspiring AI & Business Intelligence Analyst currently training at **MIDC Skill Development Center**. He specializes in:
-
-- Transforming raw datasets into meaningful business insights
-- Building scalable web applications using modern technologies
-- Bridging the gap between analytics and business strategy
-- Data-driven decision making and strategic solutions
-
-**Location:** Nagpur, India
-
-### Core Strengths
-
-✔ End-to-end Data Cleaning & EDA using Python  
-✔ SQL Query Optimization & KPI Reporting  
-✔ Interactive Dashboards with Excel & Power BI  
-✔ Frontend Development using React & Tailwind  
-✔ Problem Solving & Analytical Thinking
+# Preview build
+npm run preview
+```
 
 ---
 
-## 📧 Contact & Connect
+## 📧 Contact
 
-Feel free to reach out for AI, Data Analytics, and Business Intelligence opportunities:
-
-- **Email:** rushikeshingole467@gmail.com
-- **Phone:** +91 8010688184
-- **GitHub:** [@CodeByRushi11](https://github.com/CodeByRushi11)
-- **LinkedIn:** [Rushikesh Ingole](https://www.linkedin.com/in/rushikesh-ingole-b02052377)
-
----
-
-## �📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
+| | |
+|---|---|
+| Email | rushikeshingole467@gmail.com |
+| Phone | +91 8010688184 |
+| GitHub | [@CodeByRushi11](https://github.com/CodeByRushi11) |
+| LinkedIn | [Rushikesh Ingole](https://www.linkedin.com/in/rushikesh-ingole-b02052377) |
 
 ---
 
-> 💡 _Note:_ All content (text, links, and examples) is based on the current state of the portfolio application. Feel free to update descriptions, add new projects, or customize the styling as your work evolves.
+> *Turning complex data into actionable business intelligence — one dashboard at a time.*
