@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -14,40 +15,51 @@ import BackToTop from "./components/BackToTop";
 import ScrollProgress from "./components/ScrollProgress";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useScrollReveal } from "./hooks/useScrollReveal";
+import { useTilt } from "./hooks/useTilt";
 
 function Inner() {
   useScrollReveal();
+  useTilt();
 
-  /* Only hide native cursor on desktop (pointer:fine = mouse) */
+  /* Lenis smooth scroll */
+  useEffect(() => {
+    let lenis;
+    import("lenis").then(({ default: Lenis }) => {
+      lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+      const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+    }).catch(() => {});
+    return () => { if (lenis) lenis.destroy(); };
+  }, []);
+
+  /* Detect desktop for custom cursor */
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
-    const mq = window.matchMedia("(pointer: fine) and (hover: hover)");
+    const mq = window.matchMedia("(pointer:fine) and (hover:hover)");
     setIsDesktop(mq.matches);
-    const fn = (e) => setIsDesktop(e.matches);
+    const fn = e => setIsDesktop(e.matches);
     mq.addEventListener("change", fn);
     return () => mq.removeEventListener("change", fn);
   }, []);
 
   return (
-    <div
-      style={{ background: "var(--bg)", color: "var(--text)", minHeight: "100vh" }}
-      className={isDesktop ? "cursor-none" : ""}
-    >
-      <LoadingScreen />
-      <ScrollProgress />
-      {isDesktop && <Cursor />}
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Education />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-      <BackToTop />
+    <div style={{ background:"var(--bg)", color:"var(--text)", minHeight:"100vh" }}
+      className={isDesktop ? "cursor-none" : ""}>
+      <LoadingScreen/>
+      <ScrollProgress/>
+      {isDesktop && <Cursor/>}
+      <Navbar/>
+      <motion.main initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ duration:.5, ease:"easeOut" }}>
+        <Hero/>
+        <About/>
+        <Education/>
+        <Experience/>
+        <Skills/>
+        <Projects/>
+        <Contact/>
+      </motion.main>
+      <Footer/>
+      <BackToTop/>
     </div>
   );
 }
@@ -55,7 +67,7 @@ function Inner() {
 export default function App() {
   return (
     <ThemeProvider>
-      <Inner />
+      <Inner/>
     </ThemeProvider>
   );
 }

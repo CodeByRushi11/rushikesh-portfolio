@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 
 const jobs = [
@@ -6,11 +7,10 @@ const jobs = [
     title: "AI & Business Intelligence Analysis Trainee",
     company: "The Eduspark MIDC SDC",
     type: "Trainee",
-    location: "Nagpur, Maharashtra, India · On-site",
+    location: "Nagpur, Maharashtra · On-site",
     period: "Nov 2025 – Present · 5 mos",
     tag: "Current",
-    color: "var(--accent)",
-    colorHex: "#00d4ff",
+    color: "#00d4ff",
     points: [
       "Collected, cleaned, and transformed datasets using SQL and Excel.",
       "Performed exploratory data analysis (EDA) using Python (Pandas, NumPy).",
@@ -31,11 +31,10 @@ const jobs = [
     title: "React Developer",
     company: "Talenterise Technokrate",
     type: "Internship",
-    location: "Nagpur, Maharashtra, India · Remote",
+    location: "Nagpur, Maharashtra · Remote",
     period: "Apr 2025 – Jul 2025 · 4 mos",
     tag: "Completed",
     color: "#a78bfa",
-    colorHex: "#a78bfa",
     points: [
       "Built and maintained React-based web applications with clean, reusable components.",
       "Styled responsive UIs using Tailwind CSS for mobile and desktop.",
@@ -47,11 +46,10 @@ const jobs = [
     title: "Frontend Developer Trainee",
     company: "Esense IT, Nagpur",
     type: "Trainee",
-    location: "Nagpur, Maharashtra, India · On-site",
+    location: "Nagpur, Maharashtra · On-site",
     period: "Jul 2024 – Jan 2025 · 7 mos",
     tag: "Completed",
-    color: "var(--accent2)",
-    colorHex: "#7b2ff7",
+    color: "#7b2ff7",
     points: [
       "Built responsive web interfaces using HTML, CSS, and ReactJS.",
       "Developed functional projects including authentication pages and interactive UI components.",
@@ -61,116 +59,93 @@ const jobs = [
   },
 ];
 
-/* ─── Card component with its own IntersectionObserver ─────────
-   Each card manages its own visibility independently.
-   This avoids the bug where a card deep in the section
-   never triggers because the parent observer fires early.      */
 function JobCard({ job, index }) {
-  const cardRef = useRef(null);
-
+  const ref = useRef(null);
   useEffect(() => {
-    const el = cardRef.current;
+    const el = ref.current;
     if (!el) return;
-
-    // Start hidden
     el.style.opacity = "0";
-    el.style.transform = "translateY(32px)";
+    el.style.transform = "translateY(28px)";
     el.style.transition = "none";
-
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Small delay per card for a stagger feel
+      ([e]) => {
+        if (e.isIntersecting) {
           setTimeout(() => {
             el.style.transition =
-              "opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1)";
+              "opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)";
             el.style.opacity = "1";
             el.style.transform = "none";
           }, index * 120);
           io.disconnect();
         }
       },
-      // Lower threshold + generous rootMargin so even cards near
-      // the bottom of the page get detected reliably
-      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0.04, rootMargin: "0px 0px -20px 0px" },
     );
-
     io.observe(el);
     return () => io.disconnect();
   }, [index]);
 
   return (
     <div
-      ref={cardRef}
+      ref={ref}
       style={{
         display: "flex",
-        gap: "clamp(14px,4vw,28px)",
+        gap: "clamp(12px,4vw,28px)",
         alignItems: "flex-start",
       }}
     >
-      {/* Timeline dot — desktop only */}
-      <div
-        style={{
-          width: 42,
-          flexShrink: 0,
-          display: "none",
-          justifyContent: "center",
-          paddingTop: 26,
-        }}
-        className="sm-flex"
-      >
+      {/* Timeline dot */}
+      <div className="exp-dot">
         <div
           style={{
             width: 13,
             height: 13,
             borderRadius: "50%",
-            background: job.colorHex,
-            boxShadow: `0 0 14px ${job.colorHex}`,
+            background: job.color,
+            boxShadow: `0 0 14px ${job.color}`,
             border: "2px solid var(--bg2)",
-            zIndex: 1,
             position: "relative",
+            zIndex: 1,
             animation: index === 0 ? "pulseGlow 2s ease infinite" : "none",
           }}
         />
       </div>
 
-      {/* Card */}
-      <div
-        className="glass"
+      {/* 3D card */}
+      <motion.div
+        whileHover={{ rotateX: 2, rotateY: -3, scale: 1.012 }}
+        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+        className="glass corner-box job-card"
         style={{
           flex: 1,
-          borderRadius: "clamp(14px,3vw,20px)",
-          padding: "clamp(18px,4vw,32px)",
-          transition: "border-color 0.3s ease, box-shadow 0.3s ease",
-          /* ensure card is always block-level even before reveal */
-          minHeight: 0,
+          minWidth: 0,
+          padding: "clamp(16px,4vw,30px)",
+          transformStyle: "preserve-3d",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = job.colorHex + "70";
-          e.currentTarget.style.boxShadow = `0 12px 40px ${job.colorHex}15`;
+          e.currentTarget.style.borderColor = job.color + "60";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.borderColor = "var(--card-border)";
-          e.currentTarget.style.boxShadow = "var(--card-shadow)";
         }}
       >
-        {/* Top row: title + tag */}
+        {/* Top row */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-start",
-            marginBottom: 8,
             flexWrap: "wrap",
             gap: 8,
+            marginBottom: 8,
           }}
         >
-          <div style={{ flex: 1, minWidth: 180 }}>
+          <div style={{ flex: 1, minWidth: 160 }}>
             <h3
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 700,
-                fontSize: "clamp(14px,3vw,19px)",
+                fontSize: "clamp(13px,3vw,18px)",
                 color: "var(--text)",
                 letterSpacing: "-0.02em",
                 marginBottom: 4,
@@ -182,7 +157,7 @@ function JobCard({ job, index }) {
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "clamp(12px,2vw,14px)",
+                fontSize: "clamp(11px,2vw,14px)",
                 color: "var(--text2)",
                 fontWeight: 500,
                 margin: 0,
@@ -195,14 +170,12 @@ function JobCard({ job, index }) {
               </span>
             </p>
           </div>
-
-          {/* Status tag */}
           <span
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: 5,
-              padding: "5px 10px",
+              padding: "4px 10px",
               borderRadius: 100,
               flexShrink: 0,
               background:
@@ -233,13 +206,13 @@ function JobCard({ job, index }) {
           </span>
         </div>
 
-        {/* Meta — period + location */}
+        {/* Meta */}
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: 12,
-            marginBottom: "clamp(12px,3vw,18px)",
+            gap: "clamp(8px,2vw,14px)",
+            marginBottom: "clamp(10px,3vw,18px)",
           }}
         >
           <span
@@ -252,7 +225,8 @@ function JobCard({ job, index }) {
               color: "var(--text3)",
             }}
           >
-            <Calendar size={11} /> {job.period}
+            <Calendar size={11} />
+            {job.period}
           </span>
           <span
             style={{
@@ -264,7 +238,8 @@ function JobCard({ job, index }) {
               color: "var(--text3)",
             }}
           >
-            <MapPin size={11} /> {job.location}
+            <MapPin size={11} />
+            {job.location}
           </span>
         </div>
 
@@ -273,10 +248,10 @@ function JobCard({ job, index }) {
           style={{
             listStyle: "none",
             padding: 0,
-            margin: `0 0 clamp(12px,3vw,16px)`,
+            margin: "0 0 clamp(10px,3vw,16px)",
             display: "flex",
             flexDirection: "column",
-            gap: "clamp(6px,1.5vw,10px)",
+            gap: "clamp(5px,1.5vw,9px)",
           }}
         >
           {job.points.map((pt, j) => (
@@ -287,20 +262,20 @@ function JobCard({ job, index }) {
                 gap: 10,
                 alignItems: "flex-start",
                 fontFamily: "var(--font-body)",
-                fontSize: "clamp(12px,2vw,13px)",
+                fontSize: "clamp(11px,2vw,13px)",
                 color: "var(--text2)",
                 lineHeight: 1.65,
               }}
             >
               <span
                 style={{
-                  marginTop: 7,
+                  marginTop: 6,
                   width: 5,
                   height: 5,
                   borderRadius: "50%",
-                  background: job.colorHex,
+                  background: job.color,
                   flexShrink: 0,
-                  boxShadow: `0 0 5px ${job.colorHex}`,
+                  boxShadow: `0 0 5px ${job.color}`,
                 }}
               />
               {pt}
@@ -318,51 +293,52 @@ function JobCard({ job, index }) {
             borderTop: "1px solid var(--border)",
           }}
         >
-          {job.skills.map((skill) => (
+          {job.skills.map((s) => (
             <span
-              key={skill}
+              key={s}
               style={{
                 padding: "3px 10px",
                 borderRadius: 100,
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
+                background: "var(--tag-bg)",
+                border: "1px solid var(--tag-border)",
                 fontFamily: "var(--font-mono)",
                 fontSize: "clamp(8px,1.8vw,10px)",
-                color: "var(--text3)",
+                color: "var(--tag-text)",
                 letterSpacing: "0.04em",
-                transition: "all 0.2s ease",
+                transition: "all .2s",
                 whiteSpace: "nowrap",
+                cursor: "default",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = job.colorHex + "80";
-                e.currentTarget.style.color = job.colorHex;
-                e.currentTarget.style.background = job.colorHex + "12";
+                e.currentTarget.style.background = job.color + "18";
+                e.currentTarget.style.borderColor = job.color + "60";
+                e.currentTarget.style.color = job.color;
+                e.currentTarget.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--border)";
-                e.currentTarget.style.color = "var(--text3)";
-                e.currentTarget.style.background = "var(--surface)";
+                e.currentTarget.style.background = "var(--tag-bg)";
+                e.currentTarget.style.borderColor = "var(--tag-border)";
+                e.currentTarget.style.color = "var(--tag-text)";
+                e.currentTarget.style.transform = "none";
               }}
             >
-              {skill}
+              {s}
             </span>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
 
-/* ─── Animated timeline progress line ── */
-function TimelineLine() {
+export default function Experience() {
   const lineRef = useRef(null);
-
   useEffect(() => {
     const el = lineRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      ([e]) => {
+        if (e.isIntersecting) {
           el.style.transform = "scaleY(1)";
           io.disconnect();
         }
@@ -374,26 +350,6 @@ function TimelineLine() {
   }, []);
 
   return (
-    <div
-      ref={lineRef}
-      style={{
-        position: "absolute",
-        left: 20,
-        top: 0,
-        width: 1,
-        height: "100%",
-        background:
-          "linear-gradient(to bottom, var(--accent), #a78bfa, var(--accent2))",
-        transform: "scaleY(0)",
-        transformOrigin: "top",
-        transition: "transform 2s cubic-bezier(0.16,1,0.3,1) 0.3s",
-      }}
-    />
-  );
-}
-
-export default function Experience() {
-  return (
     <section
       id="experience"
       style={{
@@ -401,52 +357,36 @@ export default function Experience() {
         padding: "clamp(60px,10vw,100px) 20px",
       }}
     >
-      {/* Inline style for .sm-flex — show dot column on ≥ 640px */}
       <style>{`
-        @media (min-width: 640px) {
-          .sm-flex { display: flex !important; }
-        }
+        .exp-dot  { width:42px;flex-shrink:0;display:none;justify-content:center;padding-top:26px; }
+        @media(min-width:600px){ .exp-dot{display:flex;} }
+        .exp-track,.exp-line{ display:none; }
+        @media(min-width:600px){ .exp-track,.exp-line{display:block;} }
       `}</style>
 
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        {/* Section header */}
+        {/* ★ FULL SECTION HEADER — Experience */}
         <div
-          style={{ textAlign: "center", marginBottom: "clamp(36px,7vw,64px)" }}
+          style={{ textAlign: "center", marginBottom: "clamp(36px,7vw,60px)" }}
+          data-reveal="up"
         >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              marginBottom: 14,
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.15em",
-              color: "var(--accent)",
-              textTransform: "uppercase",
-            }}
-          >
+          <div className="sec-eyebrow">
             <Briefcase size={12} /> Experience
           </div>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(26px,6vw,52px)",
-              letterSpacing: "-0.04em",
-              color: "var(--text)",
-              lineHeight: 1.1,
-            }}
-          >
+          <h2 className="sec-title">
             Professional <span className="grad-text">Journey</span>
           </h2>
+          <p className="sec-sub">
+            Real-world experience across analytics, web development, and
+            frontend engineering — building meaningful, data-driven products.
+          </p>
           <div className="section-line" style={{ margin: "18px auto 0" }} />
         </div>
 
-        {/* Timeline wrapper */}
+        {/* ★ Timeline */}
         <div style={{ position: "relative" }}>
-          {/* Static track */}
           <div
+            className="exp-track"
             style={{
               position: "absolute",
               left: 20,
@@ -456,15 +396,26 @@ export default function Experience() {
               background: "var(--border)",
             }}
           />
-          {/* Animated fill */}
-          <TimelineLine />
-
-          {/* Cards */}
+          <div
+            className="exp-line"
+            ref={lineRef}
+            style={{
+              position: "absolute",
+              left: 20,
+              top: 0,
+              width: 1,
+              height: "100%",
+              background: "linear-gradient(to bottom,#00d4ff,#a78bfa,#7b2ff7)",
+              transform: "scaleY(0)",
+              transformOrigin: "top",
+              transition: "transform 2s cubic-bezier(.16,1,.3,1) .3s",
+            }}
+          />
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "clamp(20px,4vw,28px)",
+              gap: "clamp(18px,4vw,28px)",
             }}
           >
             {jobs.map((job, i) => (

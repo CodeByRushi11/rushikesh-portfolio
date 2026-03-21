@@ -1,432 +1,117 @@
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Github, ExternalLink, Folder, BarChart2, Globe, Terminal, ChevronRight } from "lucide-react";
 import { addRipple } from "../hooks/useRipple";
 
-const analytics = [
-  {
-    title: "Chocolate Sales Analysis",
-    subtitle: "Power BI Dashboard",
-    desc: "Interactive Power BI dashboard analyzing large-scale chocolate sales data to track revenue, profit, trends, and business performance across products, customers, and regions.",
-    github: "https://github.com/CodeByRushi11/Chocolate-Sales-Analysis-Power-BI-Dashboard",
-    tech: ["Power BI", "DAX", "Power Query", "Data Modeling"],
-    featured: true,
-  },
-  {
-    title: "Credit Card Financial Analytics",
-    subtitle: "BI Dashboard",
-    desc: "Interactive Power BI dashboard analyzing credit card transactions and customer demographics to uncover revenue trends, spending behavior, and business insights.",
-    github: "https://github.com/CodeByRushi11/credit-card-financial-analytics-dashboard",
-    tech: ["Power BI", "DAX", "Power Query", "Data Visualization"],
-    featured: true,
-  },
-  {
-    title: "Superstore Sales Analysis",
-    subtitle: "Python / EDA",
-    desc: "Comprehensive sales and profitability analysis using Python to identify regional performance trends, high-value product categories, and revenue optimization opportunities.",
-    github: "https://github.com/CodeByRushi11/superstore-data-analysis",
-    tech: ["Python", "Pandas", "NumPy", "Matplotlib"],
-  },
-  {
-    title: "Grocery Inventory Analytics",
-    subtitle: "SQL + Python",
-    desc: "Inventory and KPI analysis using SQL and Python to evaluate stock movement, demand patterns, and data-driven inventory optimization strategies.",
-    github: "https://github.com/CodeByRushi11/grocery-inventory-analysis",
-    tech: ["Python", "SQL", "Pandas"],
-  },
-  {
-    title: "Diwali Sales Analysis",
-    subtitle: "Python / EDA",
-    desc: "Exploratory data analysis of festive retail sales data to uncover customer segmentation insights, demographic purchasing behavior, and regional revenue distribution.",
-    github: "https://github.com/CodeByRushi11/Diwali-Sales-Analysis",
-    tech: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
-  },
-  {
-    title: "Vrinda Store Excel Analysis",
-    subtitle: "Excel Dashboard",
-    desc: "Retail sales performance dashboard built using Excel Pivot Tables and Charts to track KPIs, monthly revenue trends, and category-level performance metrics.",
-    github: "https://github.com/CodeByRushi11/Vrinda-Store-Excel-Data-Analysis",
-    tech: ["Excel", "Pivot Tables", "Dashboard"],
-  },
+const analytics=[
+  {title:"Chocolate Sales Analysis",subtitle:"Power BI Dashboard",desc:"Interactive Power BI dashboard tracking revenue, profit, trends and performance across products, customers and regions.",github:"https://github.com/CodeByRushi11/Chocolate-Sales-Analysis-Power-BI-Dashboard",tech:["Power BI","DAX","Power Query","Data Modeling"],feat:true},
+  {title:"Credit Card Financial Analytics",subtitle:"BI Dashboard",desc:"Power BI dashboard analyzing credit card transactions and customer demographics to uncover revenue trends and business insights.",github:"https://github.com/CodeByRushi11/credit-card-financial-analytics-dashboard",tech:["Power BI","DAX","Power Query"],feat:true},
+  {title:"Superstore Sales Analysis",subtitle:"Python / EDA",desc:"Comprehensive sales and profitability analysis using Python to identify regional performance and revenue optimization opportunities.",github:"https://github.com/CodeByRushi11/superstore-data-analysis",tech:["Python","Pandas","NumPy","Matplotlib"]},
+  {title:"Grocery Inventory Analytics",subtitle:"SQL + Python",desc:"Inventory and KPI analysis using SQL and Python to evaluate stock movement, demand patterns and optimization strategies.",github:"https://github.com/CodeByRushi11/grocery-inventory-analysis",tech:["Python","SQL","Pandas"]},
+  {title:"Diwali Sales Analysis",subtitle:"Python / EDA",desc:"Festive retail EDA uncovering customer segmentation insights, purchasing behavior and regional revenue distribution.",github:"https://github.com/CodeByRushi11/Diwali-Sales-Analysis",tech:["Python","Pandas","Matplotlib","Seaborn"]},
+  {title:"Vrinda Store Excel Analysis",subtitle:"Excel Dashboard",desc:"Retail sales performance dashboard using Excel Pivot Tables and Charts to track KPIs and category-level metrics.",github:"https://github.com/CodeByRushi11/Vrinda-Store-Excel-Data-Analysis",tech:["Excel","Pivot Tables","Dashboard"]},
 ];
-
-const web = [
-  {
-    title: "Todo Master",
-    subtitle: "React App",
-    desc: "Responsive task management app with dynamic status indicators, structured state management, and persistent local storage implementation.",
-    github: "https://github.com/CodeByRushi11/Todo-master-with-Deepseek-Ai.git",
-    live: "https://todoappusingdeepseekai.netlify.app/",
-    tech: ["React", "Tailwind CSS", "JavaScript"],
-    featured: true,
-  },
-  {
-    title: "Single Vendor Task App",
-    subtitle: "React + Routing",
-    desc: "Authentication-based React application featuring secure login flow, dashboard routing, and structured user navigation architecture.",
-    github: "https://github.com/CodeByRushi11/Single-vender-task1",
-    live: "https://single-vender-task1.netlify.app/",
-    tech: ["React", "Vite", "Routing"],
-  },
+const web=[
+  {title:"Todo Master",subtitle:"React App",desc:"Responsive task management app with dynamic status indicators, state management, and persistent local storage.",github:"https://github.com/CodeByRushi11/Todo-master-with-Deepseek-Ai.git",live:"https://todoappusingdeepseekai.netlify.app/",tech:["React","Tailwind CSS","JavaScript"],feat:true},
+  {title:"Single Vendor Task App",subtitle:"React + Routing",desc:"Authentication-based React app with secure login flow, dashboard routing and structured navigation architecture.",github:"https://github.com/CodeByRushi11/Single-vender-task1",live:"https://single-vender-task1.netlify.app/",tech:["React","Vite","Routing"]},
+  {title:"Portfolio Website",subtitle:"React + Framer Motion",desc:"This portfolio — React, Vite, Framer Motion, 3D animations, dark/light theme, fully mobile responsive.",github:"https://github.com/CodeByRushi11",tech:["React","Framer Motion","Tailwind CSS"],feat:true},
 ];
-
-const other = [
-  {
-    title: "Simple & Scientific Calculator",
-    subtitle: "Python GUI",
-    desc: "Python-based GUI calculator supporting arithmetic and scientific operations (sin, cos, log, sqrt, factorial) using Tkinter.",
-    github: "https://github.com/CodeByRushi11/Simple-Scientific-Calculator.git",
-    tech: ["Python", "Tkinter", "Math Module"],
-  },
+const other=[
+  {title:"Simple & Scientific Calculator",subtitle:"Python GUI",desc:"Python-based GUI calculator supporting arithmetic and scientific operations (sin, cos, log, sqrt, factorial) using Tkinter.",github:"https://github.com/CodeByRushi11/Simple-Scientific-Calculator.git",tech:["Python","Tkinter","Math Module"]},
 ];
+const TABS=[{id:"analytics",label:"Data Analytics",Icon:BarChart2,data:analytics},{id:"web",label:"Web Dev",Icon:Globe,data:web},{id:"other",label:"Other",Icon:Terminal,data:other}];
 
-const TABS = [
-  { id: "analytics", label: "Data Analytics", Icon: BarChart2, data: analytics },
-  { id: "web",       label: "Web Dev",        Icon: Globe,    data: web },
-  { id: "other",     label: "Other",          Icon: Terminal, data: other },
-];
-
-/* ─── Single project card ───────────────────────────────────────
-   KEY FIX: the card itself is display:flex + flex-direction:column
-   AND height:100% so it always fills its grid cell completely.
-   The description gets flex:1 to push the tags & links to the
-   bottom, making every card visually the same height.           */
-function ProjectCard({ project }) {
-  const [hovered, setHovered] = useState(false);
-
+function Card({p}) {
+  const [h,setH]=useState(false);
   return (
-    <div
-      className="glass"
-      style={{
-        /* ── equal height fix ── */
-        height: "100%",            /* fill the grid cell */
-        boxSizing: "border-box",
-
-        borderRadius: 20,
-        padding: "28px 24px",
-
-        /* flex column so desc stretches and links pin to bottom */
-        display: "flex",
-        flexDirection: "column",
-
-        transition: "border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)",
-        cursor: "default",
-        position: "relative",
-        overflow: "hidden",
-      }}
-      onMouseEnter={e => {
-        setHovered(true);
-        e.currentTarget.style.borderColor = "var(--border-h)";
-        e.currentTarget.style.transform = "translateY(-8px)";
-        e.currentTarget.style.boxShadow = "var(--card-shadow-h)";
-      }}
-      onMouseLeave={e => {
-        setHovered(false);
-        e.currentTarget.style.borderColor = "var(--card-border)";
-        e.currentTarget.style.transform = "";
-        e.currentTarget.style.boxShadow = "var(--card-shadow)";
-      }}
-    >
-      {/* Featured badge */}
-      {project.featured && (
-        <div style={{
-          position: "absolute", top: 16, right: 16,
-          padding: "3px 10px", borderRadius: 100,
-          background: "rgba(0,212,255,0.1)",
-          border: "1px solid var(--border-h)",
-          fontFamily: "var(--font-mono)", fontSize: 9,
-          color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase",
-        }}>
-          Featured
-        </div>
-      )}
-
-      {/* Corner glow */}
-      <div style={{
-        position: "absolute", top: -40, left: -40,
-        width: 120, height: 120,
-        background: `radial-gradient(circle, rgba(0,212,255,${hovered ? 0.1 : 0.03}) 0%, transparent 70%)`,
-        transition: "all 0.4s ease", pointerEvents: "none",
-      }} />
-
-      {/* ── SECTION 1 : title row (fixed height) ── */}
-      <div style={{
-        display: "flex", justifyContent: "space-between",
-        alignItems: "flex-start", marginBottom: 12,
-        flexShrink: 0,          /* never shrink */
-      }}>
-        <div style={{ paddingRight: 28 /* space for featured badge */ }}>
-          <div style={{
-            fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.1em",
-            color: "var(--accent)", textTransform: "uppercase", marginBottom: 4,
-          }}>
-            {project.subtitle}
+    <motion.div whileHover={{rotateX:3,rotateY:-3,scale:1.015}} transition={{type:"spring",stiffness:280,damping:22}} style={{transformStyle:"preserve-3d",height:"100%"}}>
+      <div className="glass corner-box" style={{borderRadius:18,padding:"clamp(16px,3.5vw,24px)",display:"flex",flexDirection:"column",height:"100%",boxSizing:"border-box",position:"relative",overflow:"hidden",transition:"border-color .3s",cursor:"default"}}
+        onMouseEnter={e=>{setH(true);e.currentTarget.style.borderColor="var(--card-border-h)"}}
+        onMouseLeave={e=>{setH(false);e.currentTarget.style.borderColor="var(--card-border)"}}>
+        {p.feat&&<div style={{position:"absolute",top:12,right:12,padding:"3px 9px",borderRadius:100,background:"var(--tag-bg)",border:"1px solid var(--tag-border)",fontFamily:"var(--font-mono)",fontSize:9,color:"var(--tag-text)",letterSpacing:"0.1em",zIndex:1}}>Featured</div>}
+        <div style={{position:"absolute",top:-40,left:-40,width:110,height:110,background:`radial-gradient(circle,rgba(0,212,255,${h?.1:.03}) 0%,transparent 70%)`,transition:"all .4s",pointerEvents:"none"}}/>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8,flexShrink:0,paddingRight:p.feat?50:0}}>
+          <div>
+            <div style={{fontFamily:"var(--font-mono)",fontSize:10,letterSpacing:"0.1em",color:"var(--accent)",textTransform:"uppercase",marginBottom:3}}>{p.subtitle}</div>
+            <h3 style={{fontFamily:"var(--font-display)",fontWeight:700,fontSize:"clamp(13px,2.5vw,16px)",color:"var(--text)",letterSpacing:"-0.02em",lineHeight:1.3,margin:0,transition:"color .25s"}}
+              onMouseEnter={e=>e.currentTarget.style.color="var(--accent)"} onMouseLeave={e=>e.currentTarget.style.color="var(--text)"}>{p.title}</h3>
           </div>
-          <h3
-            style={{
-              fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 17,
-              color: "var(--text)", letterSpacing: "-0.02em", lineHeight: 1.3,
-              transition: "color 0.3s", margin: 0,
-            }}
-            onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
-            onMouseLeave={e => e.currentTarget.style.color = "var(--text)"}
-          >
-            {project.title}
-          </h3>
+          <Folder size={16} style={{color:h?"var(--accent)":"var(--text3)",flexShrink:0,marginLeft:8,marginTop:2,transition:"all .3s",transform:h?"rotate(6deg) scale(1.1)":"none"}}/>
         </div>
-        <Folder
-          size={18}
-          style={{
-            color: hovered ? "var(--accent)" : "var(--text3)",
-            flexShrink: 0, marginTop: 4,
-            transition: "all 0.3s ease",
-            transform: hovered ? "rotate(6deg) scale(1.1)" : "none",
-          }}
-        />
-      </div>
-
-      {/* ── SECTION 2 : description (flex:1 — grows to fill space) ── */}
-      <p style={{
-        fontFamily: "var(--font-body)", fontWeight: 300,
-        fontSize: 13, lineHeight: 1.75, color: "var(--text2)",
-        margin: "0 0 20px",
-        flex: 1,               /* THIS is what makes all cards equal height */
-        /* clamp long text so no card ever becomes taller than others */
-        overflow: "hidden",
-        display: "-webkit-box",
-        WebkitLineClamp: 4,    /* max 4 lines of description */
-        WebkitBoxOrient: "vertical",
-      }}>
-        {project.desc}
-      </p>
-
-      {/* ── SECTION 3 : tech tags (fixed, pinned above footer) ── */}
-      <div style={{
-        display: "flex", flexWrap: "wrap", gap: 6,
-        marginBottom: 20, flexShrink: 0,
-      }}>
-        {project.tech.map(t => (
-          <span
-            key={t}
-            style={{
-              padding: "4px 10px", borderRadius: 100,
-              background: "var(--surface)", border: "1px solid var(--border)",
-              fontFamily: "var(--font-mono)", fontSize: 10,
-              color: "var(--text3)", letterSpacing: "0.04em",
-              transition: "all 0.2s ease",
-              whiteSpace: "nowrap",
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = "var(--border-h)";
-              e.currentTarget.style.color = "var(--accent)";
-              e.currentTarget.style.background = "rgba(0,212,255,0.06)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.color = "var(--text3)";
-              e.currentTarget.style.background = "var(--surface)";
-            }}
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-
-      {/* ── SECTION 4 : links footer (always at bottom) ── */}
-      <div style={{
-        display: "flex", gap: 16,
-        paddingTop: 16,
-        borderTop: "1px solid var(--border)",
-        flexShrink: 0,          /* never shrink */
-        marginTop: "auto",      /* extra safety: stick to bottom */
-      }}>
-        <a
-          href={project.github}
-          target="_blank" rel="noopener noreferrer"
-          className="link-line"
-          onClick={e => addRipple(e, "rgba(0,212,255,0.1)")}
-          style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em",
-            color: "var(--text2)", textDecoration: "none", transition: "color 0.2s",
-          }}
-          onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
-          onMouseLeave={e => e.currentTarget.style.color = "var(--text2)"}
-        >
-          <Github size={14} /> GitHub
-        </a>
-
-        {project.live && (
-          <a
-            href={project.live}
-            target="_blank" rel="noopener noreferrer"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 6,
-              fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em",
-              color: "var(--accent)", textDecoration: "none", transition: "all 0.2s",
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = "var(--accent2)";
-              e.currentTarget.style.gap = "8px";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = "var(--accent)";
-              e.currentTarget.style.gap = "6px";
-            }}
-          >
-            <ExternalLink size={14} /> Live Demo
-          </a>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Grid with stagger-on-mount animation ──────────────────────
-   The wrapper div for each card (.proj-card-wrap) starts hidden
-   and is revealed by JS timers — works on every tab switch
-   without relying on IntersectionObserver.
-
-   EQUAL HEIGHT: grid items use align-items:stretch (default)
-   and each .proj-card-wrap is height:100%, so ProjectCard
-   (also height:100%) fills the full grid row height.          */
-function AnimatedGrid({ tabKey, projects }) {
-  const gridRef = useRef(null);
-
-  useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid) return;
-
-    const wrappers = Array.from(grid.querySelectorAll(".proj-card-wrap"));
-
-    // 1. Snap all to hidden — no transition yet
-    wrappers.forEach(el => {
-      el.style.transition = "none";
-      el.style.opacity = "0";
-      el.style.transform = "translateY(24px)";
-    });
-
-    // 2. Flush paint so the hidden state is committed
-    void grid.offsetHeight;
-
-    // 3. Stagger reveal
-    const timers = wrappers.map((el, i) =>
-      setTimeout(() => {
-        el.style.transition =
-          "opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)";
-        el.style.opacity = "1";
-        el.style.transform = "translateY(0)";
-      }, i * 75)
-    );
-
-    return () => timers.forEach(clearTimeout);
-  }, [tabKey]);
-
-  return (
-    <div
-      ref={gridRef}
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-        gap: 24,
-        /* align-items defaults to stretch — grid rows share the
-           same height, making all cards in a row equal height  */
-        alignItems: "stretch",
-      }}
-    >
-      {projects.map((project, i) => (
-        <div
-          key={`${tabKey}-${i}`}
-          className="proj-card-wrap"
-          style={{
-            opacity: 0,
-            height: "100%",      /* fill grid cell so card inside can do height:100% */
-          }}
-        >
-          <ProjectCard project={project} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ─── Main section ───────────────────────────────────────────── */
-export default function Projects() {
-  const [active, setActive] = useState("analytics");
-  const current = TABS.find(t => t.id === active);
-
-  return (
-    <section id="projects" style={{ background: "var(--bg2)", padding: "100px 24px" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 56 }} data-reveal="up">
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 16,
-            fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.15em",
-            color: "var(--accent)", textTransform: "uppercase",
-          }}>
-            <Folder size={12} /> Projects
-          </div>
-          <h2 style={{
-            fontFamily: "var(--font-display)", fontWeight: 800,
-            fontSize: "clamp(32px, 5vw, 52px)", letterSpacing: "-0.04em",
-            color: "var(--text)", lineHeight: 1.1,
-          }}>
-            Work that <span className="grad-text">speaks</span>
-          </h2>
-          <div className="section-line" style={{ margin: "20px auto 0" }} />
-        </div>
-
-        {/* Tabs */}
-        <div
-          data-reveal="up"
-          style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 48, flexWrap: "wrap" }}
-        >
-          {TABS.map(({ id, label, Icon }) => (
-            <button
-              key={id}
-              onClick={e => { setActive(id); addRipple(e, "rgba(0,212,255,0.1)"); }}
-              className="btn"
-              data-hover
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                padding: "10px 22px", borderRadius: 100,
-                background: active === id ? "var(--grad-main)" : "var(--surface)",
-                backgroundSize: "200%",
-                border: `1px solid ${active === id ? "transparent" : "var(--border)"}`,
-                color: active === id ? "#fff" : "var(--text2)",
-                fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 13,
-                cursor: "pointer",
-                boxShadow: active === id ? "0 4px 20px rgba(0,212,255,0.2)" : "none",
-                transition: "all 0.3s ease",
-              }}
-            >
-              <Icon size={14} /> {label}
-            </button>
+        <p style={{fontFamily:"var(--font-body)",fontWeight:300,fontSize:"clamp(11px,2vw,13px)",lineHeight:1.7,color:"var(--text2)",marginBottom:14,flex:1,overflow:"hidden",display:"-webkit-box",WebkitLineClamp:4,WebkitBoxOrient:"vertical"}}>{p.desc}</p>
+        <div style={{display:"flex",flexWrap:"wrap",gap:5,marginBottom:14,flexShrink:0}}>
+          {p.tech.map(t=>(
+            <span key={t} style={{padding:"3px 9px",borderRadius:100,background:"var(--tag-bg)",border:"1px solid var(--tag-border)",fontFamily:"var(--font-mono)",fontSize:"clamp(8px,1.8vw,10px)",color:"var(--tag-text)",whiteSpace:"nowrap",transition:"all .2s"}}
+              onMouseEnter={e=>{e.currentTarget.style.background="var(--accent)";e.currentTarget.style.borderColor="var(--accent)";e.currentTarget.style.color="#fff"}}
+              onMouseLeave={e=>{e.currentTarget.style.background="var(--tag-bg)";e.currentTarget.style.borderColor="var(--tag-border)";e.currentTarget.style.color="var(--tag-text)"}}>
+              {t}
+            </span>
           ))}
         </div>
+        <div style={{display:"flex",gap:14,paddingTop:12,borderTop:"1px solid var(--border)",flexShrink:0,marginTop:"auto"}}>
+          <a href={p.github} target="_blank" rel="noopener noreferrer" className="link-line"
+            style={{display:"inline-flex",alignItems:"center",gap:5,fontFamily:"var(--font-mono)",fontSize:"clamp(9px,2vw,11px)",color:"var(--text2)",textDecoration:"none",transition:"color .2s"}}
+            onMouseEnter={e=>e.currentTarget.style.color="var(--accent)"} onMouseLeave={e=>e.currentTarget.style.color="var(--text2)"}>
+            <Github size={12}/> GitHub
+          </a>
+          {p.live&&<a href={p.live} target="_blank" rel="noopener noreferrer"
+            style={{display:"inline-flex",alignItems:"center",gap:5,fontFamily:"var(--font-mono)",fontSize:"clamp(9px,2vw,11px)",color:"var(--accent)",textDecoration:"none",transition:"all .2s"}}
+            onMouseEnter={e=>{e.currentTarget.style.color="var(--accent2)";e.currentTarget.style.gap="8px"}} onMouseLeave={e=>{e.currentTarget.style.color="var(--accent)";e.currentTarget.style.gap="5px"}}>
+            <ExternalLink size={12}/> Live
+          </a>}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
-        {/* Grid */}
-        <AnimatedGrid tabKey={active} projects={current.data} />
+function Grid({tabKey,projects}) {
+  const ref=useRef(null);
+  useEffect(()=>{
+    const g=ref.current; if(!g) return;
+    const ws=Array.from(g.querySelectorAll(".pcw"));
+    ws.forEach(el=>{el.style.transition="none";el.style.opacity="0";el.style.transform="translateY(22px)";});
+    void g.offsetHeight;
+    const ts=ws.map((el,i)=>setTimeout(()=>{el.style.transition="opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)";el.style.opacity="1";el.style.transform="none";},i*70));
+    return()=>ts.forEach(clearTimeout);
+  },[tabKey]);
+  return (
+    <div ref={ref} style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(100%,290px),1fr))",gap:"clamp(14px,3vw,22px)",alignItems:"stretch"}}>
+      {projects.map((p,i)=><div key={`${tabKey}-${i}`} className="pcw" style={{opacity:0,height:"100%"}}><Card p={p}/></div>)}
+    </div>
+  );
+}
 
-        {/* GitHub CTA */}
-        <div style={{ textAlign: "center", marginTop: 56 }} data-reveal="up">
-          <a
-            href="https://github.com/CodeByRushi11"
-            target="_blank" rel="noopener noreferrer"
-            className="btn glow-border"
-            onClick={e => addRipple(e, "rgba(0,212,255,0.1)")}
-            data-hover
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 10,
-              padding: "14px 32px", borderRadius: 12,
-              background: "var(--surface)", border: "1px solid var(--border)",
-              color: "var(--text)", fontFamily: "var(--font-display)", fontWeight: 700,
-              fontSize: 14, textDecoration: "none", backdropFilter: "blur(8px)",
-            }}
-          >
-            <Github size={17} /> See All Projects on GitHub
-            <ChevronRight size={16} style={{ color: "var(--accent)" }} />
+export default function Projects() {
+  const [active,setActive]=useState("analytics");
+  const cur=TABS.find(t=>t.id===active);
+  const total=analytics.length+web.length+other.length;
+  return (
+    <section id="projects" style={{background:"var(--bg2)",padding:"clamp(60px,10vw,100px) 20px"}}>
+      <div style={{maxWidth:1200,margin:"0 auto"}}>
+        <div style={{textAlign:"center",marginBottom:"clamp(36px,7vw,52px)"}} data-reveal="up">
+          <div style={{display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,fontFamily:"var(--font-mono)",fontSize:11,letterSpacing:"0.15em",color:"var(--accent)",textTransform:"uppercase"}}><Folder size={12}/> Projects</div>
+          <h2 style={{fontFamily:"var(--font-display)",fontWeight:800,fontSize:"clamp(26px,6vw,52px)",letterSpacing:"-0.04em",color:"var(--text)",lineHeight:1.1,margin:"0 0 10px"}}>Work that <span className="grad-text">speaks</span></h2>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,padding:"4px 12px",borderRadius:100,background:"var(--tag-bg)",border:"1px solid var(--tag-border)",fontFamily:"var(--font-mono)",fontSize:11,color:"var(--tag-text)"}}>✦ {total} total projects</div>
+          <div className="section-line" style={{margin:"16px auto 0"}}/>
+        </div>
+        <div data-reveal="up" style={{display:"flex",justifyContent:"center",gap:8,marginBottom:"clamp(28px,5vw,40px)",flexWrap:"wrap"}}>
+          {TABS.map(({id,label,Icon,data})=>(
+            <motion.button key={id} whileHover={{scale:1.04}} whileTap={{scale:.97}}
+              onClick={e=>{setActive(id);addRipple(e,"rgba(0,212,255,0.1)");}}
+              className="btn btn-clip corner-box"
+              style={{display:"inline-flex",alignItems:"center",gap:8,padding:"clamp(8px,2vw,10px) clamp(16px,3vw,22px)",background:active===id?"var(--grad-main)":"var(--surface)",backgroundSize:"200%",border:`1px solid ${active===id?"transparent":"var(--border)"}`,color:active===id?"#fff":"var(--text2)",fontFamily:"var(--font-display)",fontWeight:700,fontSize:"clamp(11px,2vw,13px)",cursor:"pointer",boxShadow:active===id?"0 4px 20px var(--accent-glow)":"none",transition:"all .3s"}}>
+              <Icon size={13}/>{label}
+              <span style={{background:active===id?"rgba(255,255,255,0.2)":"var(--surface-h)",borderRadius:100,padding:"1px 7px",fontFamily:"var(--font-mono)",fontSize:10}}>{data.length}</span>
+            </motion.button>
+          ))}
+        </div>
+        <Grid tabKey={active} projects={cur.data}/>
+        <div style={{textAlign:"center",marginTop:"clamp(32px,5vw,48px)"}} data-reveal="up">
+          <a href="https://github.com/CodeByRushi11" target="_blank" rel="noopener noreferrer"
+            className="btn btn-clip glow-border corner-box" onClick={e=>addRipple(e,"rgba(0,212,255,0.1)")}
+            style={{display:"inline-flex",alignItems:"center",gap:10,padding:"clamp(11px,2.5vw,14px) clamp(20px,4vw,32px)",background:"var(--surface)",border:"1px solid var(--border)",color:"var(--text)",fontFamily:"var(--font-display)",fontWeight:700,fontSize:"clamp(12px,2vw,14px)",textDecoration:"none"}}>
+            <Github size={16}/> View All {total}+ Projects on GitHub <ChevronRight size={15} style={{color:"var(--accent)"}}/>
           </a>
         </div>
       </div>
