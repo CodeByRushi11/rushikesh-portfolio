@@ -3,13 +3,18 @@ import { useEffect, useRef } from "react";
 export default function Cursor() {
   const outerRef = useRef(null);
   const innerRef = useRef(null);
-  const pos = useRef({ x: 0, y: 0 });
+  const pos      = useRef({ x: 0, y: 0 });
   const outerPos = useRef({ x: 0, y: 0 });
-  const rafRef = useRef(null);
+  const rafRef   = useRef(null);
 
   useEffect(() => {
-    const isTouchDevice = window.matchMedia("(hover:none)").matches || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return;
+    /* ── Completely disable on ANY touch / pointer-coarse device ── */
+    const isTouch =
+      window.matchMedia("(hover: none)").matches ||
+      window.matchMedia("(pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0;
+
+    if (isTouch) return; // cursor stays hidden via CSS too
 
     const outer = outerRef.current;
     const inner = innerRef.current;
@@ -30,16 +35,9 @@ export default function Cursor() {
       inner.classList.toggle("hover", isHover);
     };
 
-    const mousedown = () => {
-      outer.classList.add("click");
-      inner.classList.add("click");
-    };
-    const mouseup = () => {
-      outer.classList.remove("click");
-      inner.classList.remove("click");
-    };
+    const mousedown = () => { outer.classList.add("click"); inner.classList.add("click"); };
+    const mouseup   = () => { outer.classList.remove("click"); inner.classList.remove("click"); };
 
-    // Smooth outer follow
     const lerp = (a, b, t) => a + (b - a) * t;
     const loop = () => {
       outerPos.current.x = lerp(outerPos.current.x, pos.current.x, 0.12);
@@ -49,16 +47,16 @@ export default function Cursor() {
     };
     rafRef.current = requestAnimationFrame(loop);
 
-    window.addEventListener("mousemove", move, { passive: true });
-    window.addEventListener("mousedown", mousedown);
-    window.addEventListener("mouseup", mouseup);
-    window.addEventListener("mouseleave", () => { outer.style.opacity="0"; inner.style.opacity="0"; });
-    window.addEventListener("mouseenter", () => { outer.style.opacity="1"; inner.style.opacity="1"; });
+    window.addEventListener("mousemove",  move,      { passive: true });
+    window.addEventListener("mousedown",  mousedown);
+    window.addEventListener("mouseup",    mouseup);
+    window.addEventListener("mouseleave", () => { outer.style.opacity = "0"; inner.style.opacity = "0"; });
+    window.addEventListener("mouseenter", () => { outer.style.opacity = "1"; inner.style.opacity = "1"; });
 
     return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mousedown", mousedown);
-      window.removeEventListener("mouseup", mouseup);
+      window.removeEventListener("mousemove",  move);
+      window.removeEventListener("mousedown",  mousedown);
+      window.removeEventListener("mouseup",    mouseup);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Github, ExternalLink, Folder, BarChart2, Globe, Terminal, ChevronRight } from "lucide-react";
 import { addRipple } from "../hooks/useRipple";
 
@@ -85,6 +85,11 @@ const TABS = [
   { id: "other",     label: "Other",          Icon: Terminal, data: other },
 ];
 
+/* ─── Single project card ───────────────────────────────────────
+   KEY FIX: the card itself is display:flex + flex-direction:column
+   AND height:100% so it always fills its grid cell completely.
+   The description gets flex:1 to push the tags & links to the
+   bottom, making every card visually the same height.           */
 function ProjectCard({ project }) {
   const [hovered, setHovered] = useState(false);
 
@@ -92,10 +97,21 @@ function ProjectCard({ project }) {
     <div
       className="glass"
       style={{
-        borderRadius: 20, padding: "28px 24px",
-        display: "flex", flexDirection: "column", gap: 0,
-        transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
-        cursor: "default", position: "relative", overflow: "hidden",
+        /* ── equal height fix ── */
+        height: "100%",            /* fill the grid cell */
+        boxSizing: "border-box",
+
+        borderRadius: 20,
+        padding: "28px 24px",
+
+        /* flex column so desc stretches and links pin to bottom */
+        display: "flex",
+        flexDirection: "column",
+
+        transition: "border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)",
+        cursor: "default",
+        position: "relative",
+        overflow: "hidden",
       }}
       onMouseEnter={e => {
         setHovered(true);
@@ -124,7 +140,7 @@ function ProjectCard({ project }) {
         </div>
       )}
 
-      {/* Glow accent */}
+      {/* Corner glow */}
       <div style={{
         position: "absolute", top: -40, left: -40,
         width: 120, height: 120,
@@ -132,47 +148,73 @@ function ProjectCard({ project }) {
         transition: "all 0.4s ease", pointerEvents: "none",
       }} />
 
-      {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-        <div>
+      {/* ── SECTION 1 : title row (fixed height) ── */}
+      <div style={{
+        display: "flex", justifyContent: "space-between",
+        alignItems: "flex-start", marginBottom: 12,
+        flexShrink: 0,          /* never shrink */
+      }}>
+        <div style={{ paddingRight: 28 /* space for featured badge */ }}>
           <div style={{
             fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.1em",
             color: "var(--accent)", textTransform: "uppercase", marginBottom: 4,
           }}>
             {project.subtitle}
           </div>
-          <h3 style={{
-            fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 17,
-            color: "var(--text)", letterSpacing: "-0.02em", lineHeight: 1.3,
-            transition: "color 0.3s",
-          }}
+          <h3
+            style={{
+              fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 17,
+              color: "var(--text)", letterSpacing: "-0.02em", lineHeight: 1.3,
+              transition: "color 0.3s", margin: 0,
+            }}
             onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
             onMouseLeave={e => e.currentTarget.style.color = "var(--text)"}
           >
             {project.title}
           </h3>
         </div>
-        <Folder size={18} style={{ color: "var(--text3)", flexShrink: 0, marginLeft: 12, marginTop: 4, transition: "all 0.3s", ...(hovered ? { color: "var(--accent)", transform: "rotate(6deg) scale(1.1)" } : {}) }} />
+        <Folder
+          size={18}
+          style={{
+            color: hovered ? "var(--accent)" : "var(--text3)",
+            flexShrink: 0, marginTop: 4,
+            transition: "all 0.3s ease",
+            transform: hovered ? "rotate(6deg) scale(1.1)" : "none",
+          }}
+        />
       </div>
 
+      {/* ── SECTION 2 : description (flex:1 — grows to fill space) ── */}
       <p style={{
         fontFamily: "var(--font-body)", fontWeight: 300,
-        fontSize: 13, lineHeight: 1.7, color: "var(--text2)",
-        marginBottom: 20, flex: 1,
+        fontSize: 13, lineHeight: 1.75, color: "var(--text2)",
+        margin: "0 0 20px",
+        flex: 1,               /* THIS is what makes all cards equal height */
+        /* clamp long text so no card ever becomes taller than others */
+        overflow: "hidden",
+        display: "-webkit-box",
+        WebkitLineClamp: 4,    /* max 4 lines of description */
+        WebkitBoxOrient: "vertical",
       }}>
         {project.desc}
       </p>
 
-      {/* Tech tags */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 20 }}>
+      {/* ── SECTION 3 : tech tags (fixed, pinned above footer) ── */}
+      <div style={{
+        display: "flex", flexWrap: "wrap", gap: 6,
+        marginBottom: 20, flexShrink: 0,
+      }}>
         {project.tech.map(t => (
-          <span key={t} style={{
-            padding: "4px 10px", borderRadius: 100,
-            background: "var(--surface)", border: "1px solid var(--border)",
-            fontFamily: "var(--font-mono)", fontSize: 10,
-            color: "var(--text3)", letterSpacing: "0.04em",
-            transition: "all 0.2s ease",
-          }}
+          <span
+            key={t}
+            style={{
+              padding: "4px 10px", borderRadius: 100,
+              background: "var(--surface)", border: "1px solid var(--border)",
+              fontFamily: "var(--font-mono)", fontSize: 10,
+              color: "var(--text3)", letterSpacing: "0.04em",
+              transition: "all 0.2s ease",
+              whiteSpace: "nowrap",
+            }}
             onMouseEnter={e => {
               e.currentTarget.style.borderColor = "var(--border-h)";
               e.currentTarget.style.color = "var(--accent)";
@@ -189,8 +231,14 @@ function ProjectCard({ project }) {
         ))}
       </div>
 
-      {/* Links */}
-      <div style={{ display: "flex", gap: 16, paddingTop: 16, borderTop: "1px solid var(--border)" }}>
+      {/* ── SECTION 4 : links footer (always at bottom) ── */}
+      <div style={{
+        display: "flex", gap: 16,
+        paddingTop: 16,
+        borderTop: "1px solid var(--border)",
+        flexShrink: 0,          /* never shrink */
+        marginTop: "auto",      /* extra safety: stick to bottom */
+      }}>
         <a
           href={project.github}
           target="_blank" rel="noopener noreferrer"
@@ -199,14 +247,14 @@ function ProjectCard({ project }) {
           style={{
             display: "inline-flex", alignItems: "center", gap: 6,
             fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em",
-            color: "var(--text2)", textDecoration: "none",
-            transition: "color 0.2s",
+            color: "var(--text2)", textDecoration: "none", transition: "color 0.2s",
           }}
           onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
           onMouseLeave={e => e.currentTarget.style.color = "var(--text2)"}
         >
           <Github size={14} /> GitHub
         </a>
+
         {project.live && (
           <a
             href={project.live}
@@ -214,11 +262,16 @@ function ProjectCard({ project }) {
             style={{
               display: "inline-flex", alignItems: "center", gap: 6,
               fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em",
-              color: "var(--accent)", textDecoration: "none",
-              transition: "all 0.2s",
+              color: "var(--accent)", textDecoration: "none", transition: "all 0.2s",
             }}
-            onMouseEnter={e => { e.currentTarget.style.color = "var(--accent2)"; e.currentTarget.style.gap = "8px"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.gap = "6px"; }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = "var(--accent2)";
+              e.currentTarget.style.gap = "8px";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = "var(--accent)";
+              e.currentTarget.style.gap = "6px";
+            }}
           >
             <ExternalLink size={14} /> Live Demo
           </a>
@@ -228,6 +281,75 @@ function ProjectCard({ project }) {
   );
 }
 
+/* ─── Grid with stagger-on-mount animation ──────────────────────
+   The wrapper div for each card (.proj-card-wrap) starts hidden
+   and is revealed by JS timers — works on every tab switch
+   without relying on IntersectionObserver.
+
+   EQUAL HEIGHT: grid items use align-items:stretch (default)
+   and each .proj-card-wrap is height:100%, so ProjectCard
+   (also height:100%) fills the full grid row height.          */
+function AnimatedGrid({ tabKey, projects }) {
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const wrappers = Array.from(grid.querySelectorAll(".proj-card-wrap"));
+
+    // 1. Snap all to hidden — no transition yet
+    wrappers.forEach(el => {
+      el.style.transition = "none";
+      el.style.opacity = "0";
+      el.style.transform = "translateY(24px)";
+    });
+
+    // 2. Flush paint so the hidden state is committed
+    void grid.offsetHeight;
+
+    // 3. Stagger reveal
+    const timers = wrappers.map((el, i) =>
+      setTimeout(() => {
+        el.style.transition =
+          "opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)";
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+      }, i * 75)
+    );
+
+    return () => timers.forEach(clearTimeout);
+  }, [tabKey]);
+
+  return (
+    <div
+      ref={gridRef}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+        gap: 24,
+        /* align-items defaults to stretch — grid rows share the
+           same height, making all cards in a row equal height  */
+        alignItems: "stretch",
+      }}
+    >
+      {projects.map((project, i) => (
+        <div
+          key={`${tabKey}-${i}`}
+          className="proj-card-wrap"
+          style={{
+            opacity: 0,
+            height: "100%",      /* fill grid cell so card inside can do height:100% */
+          }}
+        >
+          <ProjectCard project={project} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── Main section ───────────────────────────────────────────── */
 export default function Projects() {
   const [active, setActive] = useState("analytics");
   const current = TABS.find(t => t.id === active);
@@ -285,16 +407,7 @@ export default function Projects() {
         </div>
 
         {/* Grid */}
-        <div
-          key={active}
-          className="anim-fade-up"
-          style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}
-          data-stagger
-        >
-          {current.data.map((project, i) => (
-            <ProjectCard key={i} project={project} />
-          ))}
-        </div>
+        <AnimatedGrid tabKey={active} projects={current.data} />
 
         {/* GitHub CTA */}
         <div style={{ textAlign: "center", marginTop: 56 }} data-reveal="up">

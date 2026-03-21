@@ -6,8 +6,8 @@ export function addRipple(e, color = "rgba(255,255,255,0.3)") {
   span.className = "ripple";
   span.style.cssText = `
     width:${d}px;height:${d}px;
-    left:${e.clientX - r.left - d/2}px;
-    top:${e.clientY - r.top - d/2}px;
+    left:${e.clientX - r.left - d / 2}px;
+    top:${e.clientY - r.top - d / 2}px;
     background:${color};
   `;
   el.appendChild(span);

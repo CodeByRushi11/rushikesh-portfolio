@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -16,11 +17,25 @@ import { useScrollReveal } from "./hooks/useScrollReveal";
 
 function Inner() {
   useScrollReveal();
+
+  /* Only hide native cursor on desktop (pointer:fine = mouse) */
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: fine) and (hover: hover)");
+    setIsDesktop(mq.matches);
+    const fn = (e) => setIsDesktop(e.matches);
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
+
   return (
-    <div style={{ background: "var(--bg)", color: "var(--text)", minHeight: "100vh" }} className="cursor-none">
+    <div
+      style={{ background: "var(--bg)", color: "var(--text)", minHeight: "100vh" }}
+      className={isDesktop ? "cursor-none" : ""}
+    >
       <LoadingScreen />
       <ScrollProgress />
-      <Cursor />
+      {isDesktop && <Cursor />}
       <Navbar />
       <main>
         <Hero />

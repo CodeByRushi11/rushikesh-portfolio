@@ -4,15 +4,82 @@
       <stop offset="0%" stop-color="#00d4ff"/>
       <stop offset="100%" stop-color="#7b2ff7"/>
     </linearGradient>
+    <linearGradient id="g2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#7b2ff7" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#7b2ff7" stop-opacity="0.08"/>
+    </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="16" fill="#0a0a0f"/>
-  <rect x="10" y="40" width="8" height="14" rx="2" fill="url(#g1)" opacity="0.6"/>
-  <rect x="22" y="30" width="8" height="24" rx="2" fill="url(#g1)" opacity="0.75"/>
-  <rect x="34" y="18" width="8" height="36" rx="2" fill="url(#g1)"/>
-  <rect x="46" y="25" width="8" height="29" rx="2" fill="url(#g1)" opacity="0.85"/>
-  <polyline points="14,39 26,29 38,17 50,24" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" fill="none"/>
-  <circle cx="14" cy="39" r="2.5" fill="#00d4ff"/>
-  <circle cx="26" cy="29" r="2.5" fill="#00d4ff"/>
-  <circle cx="38" cy="17" r="2.5" fill="#00d4ff"/>
-  <circle cx="50" cy="24" r="2.5" fill="#00d4ff"/>
+
+  <!-- Dark rounded background -->
+  <rect width="64" height="64" rx="15" fill="#0a0a0f"/>
+
+  <!-- Subtle gradient inner glow -->
+  <rect width="64" height="64" rx="15" fill="url(#glow)"/>
+
+  <!-- Dashed outer orbital ring -->
+  <circle cx="32" cy="32" r="26"
+    fill="none"
+    stroke="url(#g1)"
+    stroke-width="0.8"
+    stroke-dasharray="4.5 3"
+    opacity="0.3"/>
+
+  <!-- Solid inner ring, very subtle -->
+  <circle cx="32" cy="32" r="19"
+    fill="none"
+    stroke="url(#g1)"
+    stroke-width="0.5"
+    opacity="0.15"/>
+
+  <!-- Glowing arc — top to right (cyan) -->
+  <path d="M32,6 A26,26 0 0,1 58,32"
+    fill="none"
+    stroke="#00d4ff"
+    stroke-width="2"
+    stroke-linecap="round"
+    opacity="0.8"/>
+
+  <!-- Glowing arc — right to bottom (indigo) -->
+  <path d="M58,32 A26,26 0 0,1 32,58"
+    fill="none"
+    stroke="#7b2ff7"
+    stroke-width="1.4"
+    stroke-linecap="round"
+    opacity="0.5"/>
+
+  <!-- Top dot (arc start) -->
+  <circle cx="32" cy="6" r="2.4" fill="#00d4ff" opacity="0.95"/>
+
+  <!-- Right dot (arc transition) -->
+  <circle cx="58" cy="32" r="2.2" fill="#00d4ff" opacity="0.75"/>
+
+  <!-- Bottom dot (arc end) -->
+  <circle cx="32" cy="58" r="1.8" fill="#7b2ff7" opacity="0.5"/>
+
+  <!-- Satellite dot — upper-right diagonal, on ring -->
+  <circle cx="50.4" cy="12.8" r="3" fill="#0a0a0f" stroke="#00d4ff" stroke-width="1.5" opacity="0.95"/>
+  <circle cx="50.4" cy="12.8" r="1.4" fill="#00d4ff" opacity="1"/>
+
+  <!-- RI Monogram — centered, gradient -->
+  <text
+    x="32" y="37"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="'Syne', 'DM Sans', system-ui, sans-serif"
+    font-weight="800"
+    font-size="23"
+    letter-spacing="-1.5"
+    fill="url(#g1)">RI</text>
+
+  <!-- Thin accent underline -->
+  <line x1="19" y1="44.5" x2="45" y2="44.5"
+    stroke="url(#g1)"
+    stroke-width="0.8"
+    stroke-linecap="round"
+    opacity="0.35"/>
+
 </svg>

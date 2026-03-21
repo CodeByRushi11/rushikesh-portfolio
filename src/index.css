@@ -499,3 +499,72 @@ body, #root {
   --animate-blink: blink 1s step-end infinite;
   @keyframes blink { 50% { opacity: 0 } }
 }
+
+/* ═══════════════════════════════════════════
+   GLOBAL MOBILE RESPONSIVE OVERRIDES
+═══════════════════════════════════════════ */
+
+/* Hide custom cursor on touch/mobile devices */
+@media (hover: none), (pointer: coarse) {
+  .cursor-outer,
+  .cursor-inner { display: none !important; }
+  .cursor-none,
+  .cursor-none * { cursor: auto !important; }
+}
+
+/* Prevent horizontal overflow on all devices */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { max-width: 100vw; overflow-x: hidden; }
+
+/* ── Responsive section padding ── */
+@media (max-width: 768px) {
+  section { padding-left: 16px !important; padding-right: 16px !important; }
+}
+@media (max-width: 480px) {
+  section { padding-left: 12px !important; padding-right: 12px !important; }
+}
+
+/* ── Ticker strip mobile ── */
+@media (max-width: 480px) {
+  .ticker-inner { animation-duration: 18s; }
+}
+
+/* ── Skill bar fill active on mobile (no hover needed) ── */
+@media (hover: none) {
+  .skill-bar-fill { transform: scaleX(1) !important; }
+}
+
+/* ── Project card grid mobile ── */
+@media (max-width: 640px) {
+  .proj-card-wrap { height: auto !important; }
+}
+
+/* ── Glass cards full width on mobile ── */
+@media (max-width: 480px) {
+  .glass { border-radius: 14px !important; }
+}
+
+/* ── Back to top position on mobile ── */
+@media (max-width: 480px) {
+  #back-top { bottom: 16px; right: 14px; width: 40px; height: 40px; }
+}
+
+/* ── Scroll progress stays thin on mobile ── */
+@media (max-width: 480px) {
+  #scroll-bar { height: 2px; }
+}
+
+/* ── Contact grid mobile ── */
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Footer grid mobile ── */
+@media (max-width: 768px) {
+  .grid-cols-footer { grid-template-columns: 1fr !important; gap: 32px !important; }
+}
+
+/* ── Stats row mobile ── */
+@media (max-width: 480px) {
+  .hero-stats { gap: 0 20px !important; }
+}
