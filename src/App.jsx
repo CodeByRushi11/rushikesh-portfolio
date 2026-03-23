@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -13,6 +13,7 @@ import Cursor from "./components/Cursor";
 import LoadingScreen from "./components/LoadingScreen";
 import BackToTop from "./components/BackToTop";
 import ScrollProgress from "./components/ScrollProgress";
+import LiveChat from "./components/LiveChat";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useScrollReveal } from "./hooks/useScrollReveal";
 import { useTilt } from "./hooks/useTilt";
@@ -25,14 +26,14 @@ function Inner() {
   useEffect(() => {
     let lenis;
     import("lenis").then(({ default: Lenis }) => {
-      lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
-      const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+      lenis = new Lenis({ duration:1.2, easing:t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smooth:true });
+      const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
       requestAnimationFrame(raf);
     }).catch(() => {});
     return () => { if (lenis) lenis.destroy(); };
   }, []);
 
-  /* Detect desktop for custom cursor */
+  /* Desktop cursor */
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(pointer:fine) and (hover:hover)");
@@ -49,7 +50,10 @@ function Inner() {
       <ScrollProgress/>
       {isDesktop && <Cursor/>}
       <Navbar/>
-      <motion.main initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ duration:.5, ease:"easeOut" }}>
+      <motion.main
+        initial={{ opacity:0, y:8 }}
+        animate={{ opacity:1, y:0 }}
+        transition={{ duration:.5, ease:"easeOut" }}>
         <Hero/>
         <About/>
         <Education/>
@@ -60,6 +64,8 @@ function Inner() {
       </motion.main>
       <Footer/>
       <BackToTop/>
+      {/* ★ Live WhatsApp Chat — fixed bottom right */}
+      <LiveChat/>
     </div>
   );
 }

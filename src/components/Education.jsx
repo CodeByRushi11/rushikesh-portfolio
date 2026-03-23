@@ -1,163 +1,107 @@
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { GraduationCap, Calendar, Award, Trophy } from "lucide-react";
 
-const education = [
-  {
-    degree:"Bachelor of Computer Application (BCA)", school:"Santaji Mahavidyalaya, Nagpur",
-    year:"2021 – 2024", pct:"85%", color:"#00d4ff", tag:"Graduate",
-    highlight:"7th Rank — RTMNU",
-    desc:"Built a strong foundation in programming, database management, data structures, and analytical problem-solving — forming the basis for advanced work in analytics and BI.",
-    watermark:"BCA", icon:"🎓",
-  },
-  {
-    degree:"HSC — 12th Grade", school:"Balaji Junior College, Nagpur",
-    year:"2020", pct:"62%", color:"#a78bfa", tag:"Completed",
-    desc:"Completed higher secondary education with focus on science and mathematics, building analytical and logical reasoning skills that underpin data-driven thinking.",
-    watermark:"HSC", icon:"📘",
-  },
-  {
-    degree:"SSC — 10th Grade", school:"Yashwant High School, Nagpur",
-    year:"2018", pct:"85%", color:"#7b2ff7", tag:"Completed",
-    desc:"Achieved strong academic performance with consistent dedication across core subjects including mathematics and science.",
-    watermark:"SSC", icon:"🏫",
-  },
+const EDU = [
+  {deg:"Bachelor of Computer Application (BCA)",school:"Santaji Mahavidyalaya, Nagpur",year:"2021–2024",pct:"85%",color:"#00d4ff",tag:"Graduate",badge:"7th Rank — RTMNU",desc:"Strong foundation in programming, database management, data structures, and analytical problem-solving — basis for advanced analytics and BI work.",wm:"BCA",icon:"🎓"},
+  {deg:"HSC — 12th Grade",school:"Balaji Junior College, Nagpur",year:"2020",pct:"62%",color:"#a78bfa",tag:"Completed",desc:"Higher secondary education with focus on science and mathematics, building analytical and logical reasoning skills.",wm:"HSC",icon:"📘"},
+  {deg:"SSC — 10th Grade",school:"Yashwant High School, Nagpur",year:"2018",pct:"85%",color:"#7b2ff7",tag:"Completed",desc:"Strong academic performance in secondary education with consistent dedication across core subjects including mathematics and science.",wm:"SSC",icon:"🏫"},
 ];
 
-function EduCard({ edu, index }) {
+function EduCard({edu,i}) {
   const ref = useRef(null);
-  useEffect(() => {
-    const el = ref.current; if (!el) return;
-    el.style.opacity = "0"; el.style.transform = "translateY(28px)"; el.style.transition = "none";
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setTimeout(() => {
-          el.style.transition = "opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)";
-          el.style.opacity = "1"; el.style.transform = "none";
-        }, index * 120);
-        io.disconnect();
-      }
-    }, { threshold:.04, rootMargin:"0px 0px -20px 0px" });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [index]);
-
+  const inView = useInView(ref,{once:false,margin:"-30px"});
   return (
-    <div ref={ref} style={{ display:"flex", gap:"clamp(12px,4vw,28px)", alignItems:"flex-start" }}>
-      {/* Timeline dot */}
+    <motion.div ref={ref} style={{display:"flex",gap:"clamp(10px,3.5vw,24px)",alignItems:"flex-start"}}
+      initial={{opacity:0,x:-36}} animate={inView?{opacity:1,x:0}:{}}
+      transition={{delay:i*.13,duration:.6,ease:[.16,1,.3,1]}}>
       <div className="edu-dot">
-        <div style={{ width:13, height:13, borderRadius:"50%", background:edu.color, boxShadow:`0 0 14px ${edu.color}`, border:"2px solid var(--bg)", position:"relative", zIndex:1, animation:index===0?"pulseGlow 2s ease infinite":"none" }}/>
+        <motion.div initial={{scale:0}} animate={inView?{scale:1}:{}} transition={{delay:i*.13+.2,type:"spring",stiffness:400}}
+          style={{width:12,height:12,borderRadius:"50%",background:edu.color,boxShadow:`0 0 12px ${edu.color}`,border:"2px solid var(--bg)",position:"relative",zIndex:1,animation:i===0?"pulseGlow 2s ease infinite":"none"}}/>
       </div>
-
-      {/* 3D card */}
-      <motion.div
-        whileHover={{ rotateX:2, rotateY:-3, scale:1.015 }}
-        transition={{ type:"spring", stiffness:300, damping:24 }}
-        className="glass corner-box"
-        style={{ flex:1, minWidth:0, borderRadius:"clamp(14px,3vw,20px)", padding:"clamp(16px,4vw,28px)", position:"relative", overflow:"hidden", transformStyle:"preserve-3d" }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = edu.color+"60"; }}
-        onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--card-border)"; }}
-      >
+      <motion.div whileHover={{rotateX:2,rotateY:-2,scale:1.012}} transition={{type:"spring",stiffness:280,damping:24}}
+        className="glass corner-box job-card" style={{flex:1,minWidth:0,padding:"clamp(14px,3.5vw,26px)",position:"relative",overflow:"hidden",transformStyle:"preserve-3d"}}
+        onMouseEnter={e=>{e.currentTarget.style.borderColor=edu.color+"55"}}
+        onMouseLeave={e=>{e.currentTarget.style.borderColor="var(--card-border)"}}>
+        {/* Wipe bar */}
+        <motion.div initial={{scaleX:0}} animate={inView?{scaleX:1}:{}} transition={{delay:i*.13+.35,duration:.5,ease:[.16,1,.3,1]}}
+          style={{position:"absolute",top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,${edu.color},transparent)`,transformOrigin:"left",zIndex:2}}/>
         {/* Watermark */}
-        <div style={{ position:"absolute", top:-8, right:"clamp(8px,3vw,20px)", fontFamily:"var(--font-display)", fontWeight:800, fontSize:"clamp(44px,10vw,90px)", lineHeight:1, color:"var(--border)", userSelect:"none", letterSpacing:"-0.06em", pointerEvents:"none", opacity:.5 }}>
-          {edu.watermark}
-        </div>
-
-        <div style={{ position:"relative", zIndex:1 }}>
-          {/* Top row */}
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:8, marginBottom:10 }}>
-            <div style={{ flex:1, minWidth:160 }}>
-              <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:4 }}>
-                <span style={{ fontSize:"clamp(18px,4vw,24px)", lineHeight:1 }}>{edu.icon}</span>
-                <h3 style={{ fontFamily:"var(--font-display)", fontWeight:800, fontSize:"clamp(13px,2.8vw,18px)", color:"var(--text)", letterSpacing:"-0.02em", lineHeight:1.2, margin:0 }}>
-                  {edu.degree}
-                </h3>
+        <div style={{position:"absolute",top:-8,right:"clamp(6px,2.5vw,18px)",fontFamily:"var(--font-display)",fontWeight:800,fontSize:"clamp(40px,9vw,84px)",lineHeight:1,color:"var(--border)",userSelect:"none",letterSpacing:"-0.06em",pointerEvents:"none",opacity:.45}}>{edu.wm}</div>
+        <div style={{position:"relative",zIndex:1,paddingTop:6}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",flexWrap:"wrap",gap:7,marginBottom:9}}>
+            <div style={{flex:1,minWidth:140}}>
+              <div style={{display:"flex",alignItems:"center",gap:9,marginBottom:4}}>
+                <motion.span whileHover={{rotate:14,scale:1.2}} style={{fontSize:"clamp(16px,3.5vw,22px)",lineHeight:1,display:"inline-block"}}>{edu.icon}</motion.span>
+                <h3 style={{fontFamily:"var(--font-display)",fontWeight:800,fontSize:"clamp(12px,2.5vw,17px)",color:"var(--text)",letterSpacing:"-0.02em",lineHeight:1.25,margin:0}}>{edu.deg}</h3>
               </div>
-              <p style={{ fontFamily:"var(--font-body)", fontSize:"clamp(11px,2vw,14px)", color:"var(--text2)", fontWeight:500, margin:0 }}>
-                {edu.school}
-              </p>
+              <p style={{fontFamily:"var(--font-body)",fontSize:"clamp(11px,1.8vw,13px)",color:"var(--text2)",fontWeight:500,margin:0}}>{edu.school}</p>
             </div>
-            <span style={{ display:"inline-flex", alignItems:"center", gap:5, padding:"4px 10px", borderRadius:100, flexShrink:0, background:edu.tag==="Graduate"?`${edu.color}18`:"var(--surface)", border:`1px solid ${edu.tag==="Graduate"?edu.color+"50":"var(--border)"}`, fontFamily:"var(--font-mono)", fontSize:9, color:edu.tag==="Graduate"?edu.color:"var(--text3)", letterSpacing:"0.1em", textTransform:"uppercase" }}>
-              {edu.tag==="Graduate" && <span style={{ width:5, height:5, borderRadius:"50%", background:edu.color, animation:"pulse 1.5s ease infinite", display:"inline-block" }}/>}
-              {edu.tag}
+            <span style={{display:"inline-flex",alignItems:"center",gap:5,padding:"3px 9px",borderRadius:100,flexShrink:0,background:edu.tag==="Graduate"?`${edu.color}16`:"var(--surface)",border:`1px solid ${edu.tag==="Graduate"?edu.color+"45":"var(--border)"}`,fontFamily:"var(--font-mono)",fontSize:9,color:edu.tag==="Graduate"?edu.color:"var(--text3)",letterSpacing:"0.1em",textTransform:"uppercase"}}>
+              {edu.tag==="Graduate"&&<span style={{width:5,height:5,borderRadius:"50%",background:edu.color,animation:"pulse 1.5s ease infinite",display:"inline-block"}}/>}{edu.tag}
             </span>
           </div>
-
-          {/* Meta */}
-          <div style={{ display:"flex", flexWrap:"wrap", gap:"clamp(8px,2vw,14px)", marginBottom:"clamp(10px,2.5vw,16px)" }}>
-            <span style={{ display:"inline-flex", alignItems:"center", gap:5, fontFamily:"var(--font-mono)", fontSize:"clamp(9px,2vw,11px)", color:"var(--text3)" }}>
-              <Calendar size={11}/>{edu.year}
-            </span>
-            <span style={{ display:"inline-flex", alignItems:"center", gap:5, padding:"3px 10px", borderRadius:100, background:`${edu.color}15`, border:`1px solid ${edu.color}40`, fontFamily:"var(--font-mono)", fontSize:"clamp(9px,2vw,11px)", color:edu.color, fontWeight:600 }}>
-              <Award size={10}/>{edu.pct}
-            </span>
-            {edu.highlight && (
-              <span style={{ display:"inline-flex", alignItems:"center", gap:5, padding:"3px 10px", borderRadius:100, background:"rgba(250,204,21,0.1)", border:"1px solid rgba(250,204,21,0.35)", fontFamily:"var(--font-mono)", fontSize:"clamp(9px,2vw,11px)", color:"#fbbf24" }}>
-                <Trophy size={10}/>{edu.highlight}
-              </span>
-            )}
+          <div style={{display:"flex",flexWrap:"wrap",gap:"clamp(7px,2vw,12px)",marginBottom:"clamp(9px,2vw,14px)"}}>
+            <span style={{display:"inline-flex",alignItems:"center",gap:4,fontFamily:"var(--font-mono)",fontSize:"clamp(9px,1.8vw,11px)",color:"var(--text3)"}}><Calendar size={10}/>{edu.year}</span>
+            <motion.span whileHover={{scale:1.06}} style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:100,background:`${edu.color}13`,border:`1px solid ${edu.color}38`,fontFamily:"var(--font-mono)",fontSize:"clamp(9px,1.8vw,11px)",color:edu.color,fontWeight:600}}>
+              <Award size={9}/>{edu.pct}
+            </motion.span>
+            {edu.badge&&<span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:100,background:"rgba(251,191,36,.09)",border:"1px solid rgba(251,191,36,.30)",fontFamily:"var(--font-mono)",fontSize:"clamp(9px,1.8vw,11px)",color:"#fbbf24"}}><Trophy size={9}/>{edu.badge}</span>}
           </div>
-
-          {/* Desc */}
-          <p style={{ fontFamily:"var(--font-body)", fontWeight:300, fontSize:"clamp(11px,2vw,13px)", lineHeight:1.75, color:"var(--text2)", margin:0, borderLeft:`2px solid ${edu.color}60`, paddingLeft:"clamp(10px,2vw,16px)" }}>
-            {edu.desc}
-          </p>
+          <p style={{fontFamily:"var(--font-body)",fontWeight:300,fontSize:"clamp(11px,1.8vw,13px)",lineHeight:1.7,color:"var(--text2)",margin:0,borderLeft:`2px solid ${edu.color}55`,paddingLeft:"clamp(9px,1.8vw,14px)"}}>{edu.desc}</p>
         </div>
       </motion.div>
+    </motion.div>
+  );
+}
+
+function SvgLine() {
+  const ref = useRef(null);
+  const inView = useInView(ref,{once:false});
+  return (
+    <div ref={ref} style={{position:"absolute",left:19,top:0,bottom:0,width:2,overflow:"visible"}}>
+      <svg style={{position:"absolute",left:-0.5,top:0,width:2,height:"100%",overflow:"visible"}}>
+        <defs><linearGradient id="eGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#00d4ff"/><stop offset="50%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#7b2ff7"/></linearGradient></defs>
+        <line x1="1" y1="0" x2="1" y2="100%" stroke="url(#eGrad)" strokeWidth="2"
+          strokeDasharray="1200" strokeDashoffset={inView?"0":"1200"}
+          style={{transition:"stroke-dashoffset 2.2s cubic-bezier(.16,1,.3,1) .2s"}}/>
+      </svg>
     </div>
   );
 }
 
 export default function Education() {
-  const lineRef = useRef(null);
-  useEffect(() => {
-    const el = lineRef.current; if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.style.transform="scaleY(1)"; io.disconnect(); } }, { threshold:.05 });
-    io.observe(el); return () => io.disconnect();
-  }, []);
-
   return (
-    <section id="education" style={{ background:"var(--bg)", padding:"clamp(60px,10vw,100px) 20px" }}>
-      <style>{`
-        .edu-dot  { width:42px;flex-shrink:0;display:none;justify-content:center;padding-top:28px; }
-        @media(min-width:600px){ .edu-dot{display:flex;} }
-        .edu-track,.edu-line{ display:none; }
-        @media(min-width:600px){ .edu-track,.edu-line{display:block;} }
-      `}</style>
-
-      <div style={{ maxWidth:900, margin:"0 auto" }}>
-
-        {/* ★ FULL SECTION HEADER — Education */}
-        <div style={{ textAlign:"center", marginBottom:"clamp(36px,7vw,60px)" }} data-reveal="up">
-          <div className="sec-eyebrow"><GraduationCap size={12}/> Education</div>
+    <section id="education" style={{background:"var(--bg)",padding:"clamp(60px,9vw,100px) 20px"}}>
+      <style>{`.edu-dot{width:40px;flex-shrink:0;display:none;justify-content:center;padding-top:26px;}@media(min-width:560px){.edu-dot{display:flex;}}.edu-track{display:none;}@media(min-width:560px){.edu-track{display:block;}}`}</style>
+      <div style={{maxWidth:880,margin:"0 auto"}}>
+        <motion.div style={{textAlign:"center",marginBottom:"clamp(32px,6vw,52px)"}}
+          initial={{opacity:0,y:36}} whileInView={{opacity:1,y:0}} viewport={{once:false,margin:"-50px"}} transition={{duration:.65,ease:[.16,1,.3,1]}}>
+          <div className="sec-eyebrow"><GraduationCap size={11}/> Education</div>
           <h2 className="sec-title">Academic <span className="grad-text">Foundation</span></h2>
-          <p className="sec-sub">A strong academic background in computer science and technology, combining theoretical knowledge with practical skills.</p>
-          <div className="section-line" style={{ margin:"18px auto 0" }}/>
-        </div>
+          <p className="sec-sub">A strong academic background combining theoretical knowledge with practical skills.</p>
+          <div className="section-line"/>
+        </motion.div>
 
-        {/* ★ Summary badges */}
-        <div style={{ display:"flex", flexWrap:"wrap", justifyContent:"center", gap:10, marginBottom:"clamp(28px,5vw,48px)" }} data-reveal="up">
-          {[
-            { l:"BCA Graduate", v:"85%", c:"#00d4ff" },
-            { l:"12th Grade",   v:"62%", c:"#a78bfa" },
-            { l:"10th Grade",   v:"85%", c:"#7b2ff7" },
-          ].map(({ l, v, c }) => (
+        {/* Summary badges */}
+        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:9,marginBottom:"clamp(26px,5vw,44px)"}}>
+          {[{l:"BCA Graduate",v:"85%",c:"#00d4ff"},{l:"12th Grade",v:"62%",c:"#a78bfa"},{l:"10th Grade",v:"85%",c:"#7b2ff7"}].map(({l,v,c},i)=>(
             <motion.div key={l}
-              whileHover={{ y:-4, scale:1.05 }}
-              transition={{ type:"spring", stiffness:400, damping:20 }}
-              style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 20px", borderRadius:12, background:`${c}10`, border:`1px solid ${c}35`, cursor:"default" }}>
-              <span style={{ fontFamily:"var(--font-body)", fontSize:"clamp(11px,2vw,13px)", color:"var(--text2)" }}>{l}</span>
-              <span style={{ fontFamily:"var(--font-display)", fontWeight:800, fontSize:"clamp(16px,3vw,22px)", color:c, letterSpacing:"-0.03em" }}>{v}</span>
+              initial={{opacity:0,scale:.78}} whileInView={{opacity:1,scale:1}} viewport={{once:false}}
+              transition={{delay:i*.1,type:"spring",stiffness:340,damping:22}}
+              whileHover={{y:-4,scale:1.05}}
+              style={{display:"flex",alignItems:"center",gap:9,padding:"9px 18px",borderRadius:11,background:`${c}0e`,border:`1px solid ${c}30`,cursor:"default"}}>
+              <span style={{fontFamily:"var(--font-body)",fontSize:"clamp(11px,1.8vw,13px)",color:"var(--text2)"}}>{l}</span>
+              <span style={{fontFamily:"var(--font-display)",fontWeight:800,fontSize:"clamp(15px,3vw,21px)",color:c,letterSpacing:"-0.03em"}}>{v}</span>
             </motion.div>
           ))}
         </div>
 
-        {/* ★ Timeline */}
-        <div style={{ position:"relative" }}>
-          <div className="edu-track" style={{ position:"absolute", left:20, top:0, bottom:0, width:1, background:"var(--border)" }}/>
-          <div className="edu-line" ref={lineRef} style={{ position:"absolute", left:20, top:0, width:1, height:"100%", background:"linear-gradient(to bottom,#00d4ff,#a78bfa,#7b2ff7)", transform:"scaleY(0)", transformOrigin:"top", transition:"transform 2s cubic-bezier(.16,1,.3,1) .3s" }}/>
-          <div style={{ display:"flex", flexDirection:"column", gap:"clamp(18px,4vw,28px)" }}>
-            {education.map((edu, i) => <EduCard key={i} edu={edu} index={i}/>)}
+        <div style={{position:"relative"}}>
+          <div className="edu-track" style={{position:"absolute",left:19,top:0,bottom:0,width:2,background:"var(--border)"}}/>
+          <div className="edu-track"><SvgLine/></div>
+          <div style={{display:"flex",flexDirection:"column",gap:"clamp(16px,3.5vw,24px)"}}>
+            {EDU.map((edu,i)=><EduCard key={i} edu={edu} i={i}/>)}
           </div>
         </div>
       </div>
