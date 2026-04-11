@@ -26,7 +26,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── DARK ───────────────────────────────────── */
+/* ─── DARK THEME ─────────────────────────────── */
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
@@ -58,30 +58,32 @@ body {
       rgba(123, 47, 247, 0.09) 0%,
       transparent 50%
     );
-  --nav-bg: rgba(8, 8, 15, 0.9);
+  --nav-bg: rgba(8, 8, 15, 0.75);
   --footer-bg: #040409;
-  --card-bg: rgba(255, 255, 255, 0.025);
-  --card-bg-h: rgba(255, 255, 255, 0.05);
-  --card-border: rgba(255, 255, 255, 0.06);
-  --card-border-h: rgba(0, 212, 255, 0.4);
-  --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
-  --card-shadow-h:
-    0 12px 40px rgba(0, 212, 255, 0.14), 0 2px 16px rgba(0, 0, 0, 0.4);
-  --tag-bg: rgba(0, 212, 255, 0.07);
+  /* Glass card variables */
+  --glass-bg: rgba(255, 255, 255, 0.038);
+  --glass-bg-h: rgba(255, 255, 255, 0.065);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-h: rgba(0, 212, 255, 0.4);
+  --glass-shine: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.38);
+  --glass-shadow-h:
+    0 12px 40px rgba(0, 212, 255, 0.14), 0 4px 24px rgba(0, 0, 0, 0.4);
+  --tag-bg: rgba(0, 212, 255, 0.08);
   --tag-border: rgba(0, 212, 255, 0.22);
   --tag-text: #00d4ff;
   --overlay: rgba(0, 0, 0, 0.82);
 }
 
-/* ─── LIGHT ──────────────────────────────────── */
+/* ─── LIGHT THEME ────────────────────────────── */
 [data-theme="light"] {
   color-scheme: light;
-  --bg: #f7f7fc;
-  --bg2: #efeff7;
-  --bg3: #e7e7f0;
-  --bg4: #dedeed;
-  --surface: rgba(255, 255, 255, 0.82);
-  --surface-h: rgba(255, 255, 255, 0.96);
+  --bg: #f4f4fa;
+  --bg2: #eceef7;
+  --bg3: #e4e6f0;
+  --bg4: #dcdeed;
+  --surface: rgba(255, 255, 255, 0.75);
+  --surface-h: rgba(255, 255, 255, 0.92);
   --border: rgba(0, 0, 60, 0.09);
   --border-h: rgba(0, 90, 200, 0.45);
   --text: #09091e;
@@ -104,15 +106,16 @@ body {
       rgba(80, 16, 184, 0.05) 0%,
       transparent 50%
     );
-  --nav-bg: rgba(247, 247, 252, 0.92);
+  --nav-bg: rgba(244, 244, 250, 0.8);
   --footer-bg: #0c0c1e;
-  --card-bg: rgba(255, 255, 255, 0.88);
-  --card-bg-h: rgba(255, 255, 255, 1);
-  --card-border: rgba(0, 0, 60, 0.08);
-  --card-border-h: rgba(0, 90, 200, 0.4);
-  --card-shadow: 0 2px 12px rgba(0, 0, 40, 0.06);
-  --card-shadow-h:
-    0 10px 36px rgba(0, 90, 200, 0.11), 0 2px 12px rgba(0, 0, 40, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-bg-h: rgba(255, 255, 255, 0.94);
+  --glass-border: rgba(0, 0, 60, 0.09);
+  --glass-border-h: rgba(0, 90, 200, 0.38);
+  --glass-shine: rgba(255, 255, 255, 0.95);
+  --glass-shadow: 0 2px 16px rgba(0, 0, 40, 0.07);
+  --glass-shadow-h:
+    0 10px 36px rgba(0, 90, 200, 0.11), 0 2px 16px rgba(0, 0, 40, 0.08);
   --tag-bg: rgba(0, 96, 204, 0.07);
   --tag-border: rgba(0, 96, 204, 0.2);
   --tag-text: #0050aa;
@@ -148,7 +151,7 @@ body,
   border-radius: 2px;
 }
 
-/* ─── KEYFRAMES ─────────────────────────────── */
+/* ─── ALL KEYFRAMES ──────────────────────────── */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -422,16 +425,6 @@ body,
     filter: drop-shadow(0 0 18px var(--accent-glow));
   }
 }
-@keyframes counterUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 @keyframes careerDot {
   0%,
   100% {
@@ -471,15 +464,6 @@ body,
     opacity: 0.5;
   }
 }
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
 @keyframes drawSVG {
   from {
     stroke-dashoffset: 1200;
@@ -499,16 +483,6 @@ body,
   100% {
     opacity: 1;
     transform: scale(1) rotate(0);
-  }
-}
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
   }
 }
 @keyframes drift1 {
@@ -547,24 +521,13 @@ body,
     transform: translate(-24px, -18px);
   }
 }
-@keyframes wipeX {
-  from {
-    transform: scaleX(0);
+/* Glass shimmer sweep */
+@keyframes glassSweep {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
   }
-  to {
-    transform: scaleX(1);
-  }
-}
-@keyframes wobble {
-  0%,
   100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(1.2deg);
-  }
-  75% {
-    transform: rotate(-1.2deg);
+    transform: translateX(300%) skewX(-15deg);
   }
 }
 
@@ -631,7 +594,6 @@ body,
   background-clip: text;
   animation: shimText 3s linear infinite;
 }
-
 .d-0 {
   animation-delay: 0s;
 }
@@ -735,80 +697,273 @@ body,
   animation: gradShift 4s ease infinite;
 }
 
-/* ─── GLASS CARD ─────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   ★★★ GLASSMORPHISM SYSTEM ★★★
+   All glass elements use a unified layered approach:
+   1. backdrop-filter blur + saturate
+   2. semi-transparent background
+   3. inset top-edge highlight (the "glass shine")
+   4. coloured border
+   5. outer box-shadow depth
+═══════════════════════════════════════════════════ */
+
+/* ── Base glass card ── */
 .glass {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--card-shadow);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 var(--glass-shine);
   transition:
-    box-shadow 0.35s,
-    border-color 0.35s,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.3s;
+    background 0.3s ease;
 }
 .glass:hover {
-  box-shadow: var(--card-shadow-h);
-  border-color: var(--card-border-h);
-  background: var(--card-bg-h);
-}
-[data-theme="light"] .glass {
-  background: rgba(255, 255, 255, 0.86);
-}
-[data-theme="light"] .glass:hover {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: var(--card-shadow-h);
+  box-shadow:
+    var(--glass-shadow-h),
+    inset 0 1px 0 var(--glass-shine);
+  border-color: var(--glass-border-h);
+  background: var(--glass-bg-h);
 }
 
-/* ─── GLASSMORPHISM ─────────────────────────────
-   Extra glass utilities used by Skills + cards.
-   The main .glass class already has backdrop-filter;
-   these are additive refinements.
-─────────────────────────────────────────────── */
-.glass-deep {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 8px 40px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+/* Sweep shimmer on hover for non-corner-box glass */
+.glass:not(.corner-box)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+  z-index: 1;
 }
+.glass:not(.corner-box):hover::after {
+  animation: glassSweep 0.7s ease forwards;
+}
+
+/* ── Heavy glass (modals, loading) ── */
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+[data-theme="light"] .glass-heavy {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 60, 0.08);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 40, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
+}
+
+/* ── Panel glass (stats row, tabs wrapper, ticker) ── */
 .glass-panel {
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow:
-    0 4px 32px rgba(0, 0, 0, 0.22),
+    0 4px 24px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
-/* Light mode glass */
-[data-theme="light"] .glass-deep {
-  background: rgba(255, 255, 255, 0.72);
-  border-color: rgba(0, 0, 60, 0.09);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 40, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
 [data-theme="light"] .glass-panel {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.62);
   border-color: rgba(0, 0, 60, 0.07);
   box-shadow:
-    0 4px 24px rgba(0, 0, 40, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    0 4px 18px rgba(0, 0, 40, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
-/* ─── SECTION HEADER ─────────────────────────── */
+/* ── Pill glass (eyebrow labels, badges, chips) ── */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 10px rgba(0, 0, 0, 0.15);
+}
+[data-theme="light"] .glass-pill {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 2px 8px rgba(0, 0, 40, 0.06);
+}
+
+/* ── Navbar glass ── */
+.nav-glass {
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06),
+    0 4px 30px rgba(0, 0, 0, 0.18) !important;
+}
+[data-theme="light"] .nav-glass {
+  box-shadow:
+    0 1px 0 rgba(0, 0, 60, 0.06),
+    0 4px 24px rgba(0, 0, 40, 0.07) !important;
+}
+
+/* ── Stat card glass ── */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 20px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+[data-theme="light"] .stat-card {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 60, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    0 4px 16px rgba(0, 0, 40, 0.06);
+}
+.stat-card:hover {
+  transform: translateY(-5px) scale(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 12px 32px var(--accent-glow);
+  border-color: var(--border-h) !important;
+}
+
+/* ── Skill chip glass ── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 10px rgba(0, 0, 0, 0.14);
+  cursor: default;
+  transition:
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.22s,
+    border-color 0.22s,
+    box-shadow 0.22s;
+}
+.chip:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 7px 20px var(--accent-glow);
+}
+.chip:hover .chip-emoji {
+  transform: scale(1.2) rotate(8deg);
+}
+.chip:hover .chip-label {
+  color: #000 !important;
+  font-weight: 700;
+}
+.chip-emoji {
+  transition: transform 0.22s;
+  display: inline-block;
+}
+.chip-label {
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 2vw, 12px);
+  letter-spacing: 0.05em;
+  color: var(--text2);
+  transition: color 0.22s;
+}
+[data-theme="dark"] .chip:hover {
+  background: var(--accent);
+}
+[data-theme="dark"] .chip:hover .chip-label {
+  color: #000 !important;
+}
+@media (hover: none), (pointer: coarse) {
+  .chip:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 2px 10px rgba(0, 0, 0, 0.14);
+  }
+}
+
+/* ── About highlight cards ── */
+.hi-card {
+  cursor: default;
+  border-radius: 12px;
+  transition:
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s,
+    border-color 0.28s,
+    border-radius 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hi-card:hover {
+  transform: translateY(-5px) scale(1.04);
+  box-shadow: 0 10px 28px var(--accent-glow);
+  border-color: var(--border-h) !important;
+  border-radius: 0 12px 0 12px !important;
+}
+.hi-card:hover .hi-icon {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+.hi-card:hover .hi-icon svg {
+  color: #000 !important;
+}
+
+/* ── Job cards ── */
+.job-card {
+  border-radius: clamp(12px, 2.5vw, 18px);
+  transition:
+    border-color 0.28s,
+    box-shadow 0.28s,
+    border-radius 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.job-card:hover {
+  border-radius: 0 clamp(12px, 2.5vw, 18px) 0 clamp(12px, 2.5vw, 18px) !important;
+}
+
+/* ─── SECTION HEADERS ────────────────────────── */
 .sec-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   padding: 5px 13px;
   border-radius: 100px;
-  background: var(--tag-bg);
+  background: rgba(0, 212, 255, 0.08);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
   border: 1px solid var(--tag-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.12);
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -865,8 +1020,6 @@ body,
   transform: scale(0);
   animation: rippleAnim 0.55s ease-out forwards;
 }
-
-/* Corner-flip buttons */
 .btn-clip {
   border-radius: 0 12px 0 12px !important;
   transition:
@@ -879,8 +1032,6 @@ body,
   border-radius: 12px 0 12px 0 !important;
   transform: translateY(-2px) scale(1.02);
 }
-
-/* Shimmer */
 .btn-shimmer::after {
   content: "";
   position: absolute;
@@ -898,8 +1049,6 @@ body,
 .btn-shimmer:hover::after {
   animation: shimmer 0.65s ease forwards;
 }
-
-/* Glow border */
 .glow-border {
   position: relative;
 }
@@ -918,8 +1067,6 @@ body,
 .glow-border:hover::before {
   opacity: 1;
 }
-
-/* Photo spin ring */
 .border-spin {
   background: conic-gradient(from 0deg, #00d4ff, #7b2ff7, #ff6b35, #00d4ff);
   animation: spin 4s linear infinite;
@@ -994,91 +1141,6 @@ body,
   color: var(--accent) !important;
 }
 
-/* ─── ABOUT HIGHLIGHT CARDS ─────────────────── */
-.hi-card {
-  cursor: default;
-  border-radius: 12px;
-  transition:
-    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.28s,
-    border-color 0.28s,
-    border-radius 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hi-card:hover {
-  transform: translateY(-5px) scale(1.04);
-  box-shadow: 0 10px 28px var(--accent-glow);
-  border-color: var(--border-h) !important;
-  border-radius: 0 12px 0 12px !important;
-}
-.hi-card:hover .hi-icon {
-  background: var(--accent) !important;
-  border-color: var(--accent) !important;
-}
-.hi-card:hover .hi-icon svg {
-  color: #000 !important;
-}
-
-/* ─── JOB / EDU CARDS ────────────────────────── */
-.job-card {
-  border-radius: clamp(12px, 2.5vw, 18px);
-  transition:
-    border-color 0.28s,
-    box-shadow 0.28s,
-    border-radius 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.job-card:hover {
-  border-radius: 0 clamp(12px, 2.5vw, 18px) 0 clamp(12px, 2.5vw, 18px) !important;
-}
-
-/* ─── SKILL CHIPS ────────────────────────────── */
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  border-radius: 100px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  cursor: default;
-  transition:
-    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.22s,
-    border-color 0.22s,
-    box-shadow 0.22s;
-}
-.chip:hover {
-  transform: translateY(-4px) scale(1.05);
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 7px 20px var(--accent-glow);
-}
-.chip:hover .chip-emoji {
-  transform: scale(1.2) rotate(8deg);
-}
-.chip:hover .chip-label {
-  color: #000 !important;
-  font-weight: 700;
-}
-.chip-emoji {
-  transition: transform 0.22s;
-  display: inline-block;
-}
-.chip-label {
-  font-family: var(--font-mono);
-  font-size: clamp(9px, 2vw, 12px);
-  letter-spacing: 0.05em;
-  color: var(--text2);
-  transition: color 0.22s;
-}
-@media (hover: none), (pointer: coarse) {
-  .chip:hover {
-    transform: none;
-    background: var(--card-bg);
-    border-color: var(--card-border);
-    box-shadow: none;
-  }
-}
-
 /* ─── SKILL BARS ─────────────────────────────── */
 .bar-fill {
   transform-origin: left;
@@ -1092,21 +1154,6 @@ body,
   .bar-fill {
     transform: scaleX(1) !important;
   }
-}
-
-/* ─── STAT CARD ──────────────────────────────── */
-.stat-card {
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.28s,
-    border-color 0.28s;
-}
-.stat-card:hover {
-  transform: translateY(-5px) scale(1.04);
-  box-shadow: 0 12px 32px var(--accent-glow);
-  border-color: var(--border-h) !important;
 }
 
 /* ─── TICKER ─────────────────────────────────── */
@@ -1254,19 +1301,11 @@ body,
 #loader {
   position: fixed;
   inset: 0;
-  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   z-index: 99999;
-  transition:
-    opacity 0.55s,
-    visibility 0.55s;
-}
-#loader.out {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
 }
 .ring1 {
   width: 52px;
@@ -1343,18 +1382,59 @@ body,
   }
 }
 
-/* ─── RESUME MODAL ───────────────────────────── */
+/* ─── RESUME MODAL OVERLAY ───────────────────── */
 .rm-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
   background: var(--overlay);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: clamp(10px, 3vw, 22px);
+}
+
+/* ─── GLASS EXTRAS — page-specific ──────────────
+   Applied to non-.glass elements to add frosting.
+─────────────────────────────────────────────── */
+
+/* Stats row in Hero */
+.glass-stats {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 24px rgba(0, 0, 0, 0.18);
+}
+[data-theme="light"] .glass-stats {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 60, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    0 4px 16px rgba(0, 0, 40, 0.05);
+}
+
+/* Ticker */
+.glass-ticker {
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Footer status card */
+.glass-status {
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(0, 212, 255, 0.18),
+    0 2px 12px rgba(0, 212, 255, 0.08);
 }
 
 /* ─── RESPONSIVE ─────────────────────────────── */

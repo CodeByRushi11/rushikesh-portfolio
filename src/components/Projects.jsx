@@ -534,6 +534,7 @@ export default function Projects() {
 
         {/* Tabs */}
         <motion.div
+          className="glass-panel"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -542,11 +543,6 @@ export default function Projects() {
             flexWrap: "wrap",
             padding: "clamp(10px,2vw,14px) clamp(12px,2.5vw,18px)",
             borderRadius: 16,
-            background: "rgba(255,255,255,0.03)",
-            backdropFilter: "blur(14px)",
-            WebkitBackdropFilter: "blur(14px)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07)",
           }}
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
