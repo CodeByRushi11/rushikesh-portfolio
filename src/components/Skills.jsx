@@ -492,7 +492,7 @@ const CATS = [
 /* ── Animated circular progress ring (original) ── */
 function Ring({ pct, color, size = 36 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: false, margin: "-10px" });
+  const inView = useInView(ref, { once: true, margin: "-10px" });
   const r = (size - 4) / 2,
     c = 2 * Math.PI * r,
     off = c - (pct / 100) * c;
@@ -543,7 +543,7 @@ function TechIconCard({ label, color, bg, icon, index }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
       whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-      viewport={{ once: false, margin: "-20px" }}
+      viewport={{ once: true, margin: "-20px" }}
       transition={{
         delay: index * 0.05,
         type: "spring",
@@ -569,8 +569,8 @@ function TechIconCard({ label, color, bg, icon, index }) {
           borderRadius: 16,
           /* Glassmorphism */
           background: "rgba(255,255,255,0.06)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
+          backdropFilter: "blur(10px) saturate(140%)",
+          WebkitBackdropFilter: "blur(10px) saturate(140%)",
           border: "1px solid rgba(255,255,255,0.13)",
           boxShadow:
             "0 8px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.15)",
@@ -639,19 +639,19 @@ function SkillCard({ Icon, label, skills, color, index }) {
     <motion.div
       initial={{ opacity: 0, y: 36, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: false, margin: "-30px" }}
+      viewport={{ once: true, margin: "-30px" }}
       transition={{
         delay: index * 0.09,
         type: "spring",
-        stiffness: 280,
-        damping: 24,
+        stiffness: 260,
+        damping: 28,
       }}
       whileHover={{ rotateX: 3, rotateY: -4, scale: 1.02 }}
       style={{
         /* Glassmorphism */
         background: "rgba(255,255,255,0.05)",
-        backdropFilter: "blur(22px)",
-        WebkitBackdropFilter: "blur(22px)",
+        backdropFilter: "blur(10px) saturate(140%)",
+        WebkitBackdropFilter: "blur(10px) saturate(140%)",
         border: "1px solid rgba(255,255,255,0.10)",
         boxShadow:
           "0 4px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.10)",
@@ -682,10 +682,11 @@ function SkillCard({ Icon, label, skills, color, index }) {
           height: 72,
           borderRadius: "50%",
           border: `1px dashed ${color}28`,
-          animation: "spin 14s linear infinite",
+          opacity: 0.4,
           pointerEvents: "none",
         }}
-      />
+      />{" "}
+      {/* ★ PERF: no spin - was causing per-card layout */}
       {/* Glass shine strip */}
       <div
         style={{
@@ -710,7 +711,6 @@ function SkillCard({ Icon, label, skills, color, index }) {
           pointerEvents: "none",
         }}
       />
-
       {/* Header */}
       <div
         style={{
@@ -721,7 +721,7 @@ function SkillCard({ Icon, label, skills, color, index }) {
         }}
       >
         <motion.div
-          whileHover={{ rotate: 14, scale: 1.16 }}
+          whileHover={{ rotate: 8, scale: 1.1 }}
           transition={{ type: "spring", stiffness: 400 }}
           style={{
             width: 40,
@@ -729,7 +729,7 @@ function SkillCard({ Icon, label, skills, color, index }) {
             borderRadius: 11,
             /* Glassmorphism icon bg */
             background: `rgba(255,255,255,0.06)`,
-            backdropFilter: "blur(10px)",
+            backdropFilter: "blur(8px)",
             border: `1px solid ${color}40`,
             display: "flex",
             alignItems: "center",
@@ -752,7 +752,6 @@ function SkillCard({ Icon, label, skills, color, index }) {
           {label}
         </h3>
       </div>
-
       {/* Skills with ring + bar (original) */}
       <div
         style={{
@@ -820,7 +819,7 @@ export default function Skills() {
           style={{ textAlign: "center", marginBottom: "clamp(32px,6vw,52px)" }}
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="sec-eyebrow">
@@ -840,15 +839,15 @@ export default function Skills() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-30px" }}
+          viewport={{ once: true, margin: "-30px" }}
           transition={{ duration: 0.6 }}
         >
           {/* Glassmorphism container */}
           <div
             style={{
               background: "rgba(255,255,255,0.03)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
+              backdropFilter: "blur(12px) saturate(140%)",
+              WebkitBackdropFilter: "blur(12px) saturate(140%)",
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: 22,
               boxShadow:

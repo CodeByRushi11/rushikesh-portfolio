@@ -131,7 +131,7 @@ function Card({ p, i }) {
         stiffness: 300,
         damping: 26,
       }}
-      whileHover={{ rotateX: 2, rotateY: -2, scale: 1.015 }}
+      whileHover={{ y: -4, scale: 1.012 }}
       style={{ transformStyle: "preserve-3d", height: "100%" }}
     >
       <div
@@ -229,14 +229,7 @@ function Card({ p, i }) {
 
         {p.feat && !isNew && (
           <motion.div
-            animate={{
-              boxShadow: [
-                "0 0 5px var(--accent-glow)",
-                "0 0 12px var(--accent-glow)",
-                "0 0 5px var(--accent-glow)",
-              ],
-            }}
-            transition={{ repeat: Infinity, duration: 2 }}
+            style={{}} /* ★ PERF: featured badge glow animation removed */
             style={{
               position: "absolute",
               top: 11,
@@ -257,14 +250,7 @@ function Card({ p, i }) {
         )}
         {p.feat && isNew && (
           <motion.div
-            animate={{
-              boxShadow: [
-                "0 0 5px var(--accent-glow)",
-                "0 0 12px var(--accent-glow)",
-                "0 0 5px var(--accent-glow)",
-              ],
-            }}
-            transition={{ repeat: Infinity, duration: 2 }}
+            style={{}} /* ★ PERF: featured badge glow animation removed */
             style={{
               position: "absolute",
               top: 11,
@@ -503,7 +489,7 @@ export default function Projects() {
           style={{ textAlign: "center", marginBottom: "clamp(32px,6vw,48px)" }}
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="sec-eyebrow">
@@ -546,7 +532,7 @@ export default function Projects() {
           }}
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: 0.55 }}
         >
           {TABS.map(({ id, label, Icon, data }) => (
@@ -626,7 +612,7 @@ export default function Projects() {
           style={{ textAlign: "center", marginTop: "clamp(28px,5vw,44px)" }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: 0.55 }}
         >
           <a
