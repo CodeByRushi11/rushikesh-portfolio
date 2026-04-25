@@ -13,6 +13,23 @@ import { addRipple } from "../hooks/useRipple";
 
 const ANA = [
   {
+    title: "Furniture Sales Analysis Dashboard",
+    sub: "Google Sheets / Excel / BI",
+    desc: "End-to-end business analysis project using Google Sheets. Includes data cleaning, KPI creation, and 4 dashboards (Product, Financial, Operations, Executive). Delivered actionable insights on revenue, profit, inventory, and sales performance.",
+    gh: "https://github.com/CodeByRushi11/furniture-sales-analysis.git",
+    live: "https://docs.google.com/spreadsheets/d/1NorLJQBEdYwKK0ufPCHNP3teRi9pwKLydtoQCgQC1k8/edit",
+    tech: [
+      "Google Sheets",
+      "Excel",
+      "Pivot Tables",
+      "Dashboard",
+      "Data Cleaning",
+      "Business Analysis",
+    ],
+    feat: true,
+    badge: "🔥 Featured",
+  },
+  {
     title: "Blinkit Customer Feedback Analysis",
     sub: "Python / NLP / EDA",
     desc: "End-to-end analysis of 5,138 real customer reviews using sentiment analysis, category breakdown (Delivery, App, Product, Service), monthly trend tracking, and 10 data visualisations. Average rating: 3.34/5 — 34.6% neutral customers identified as growth opportunity. Includes full business report + 6 NPS improvement recommendations.",
@@ -28,7 +45,6 @@ const ANA = [
       "EDA",
     ],
     feat: true,
-    badge: "🆕 New",
   },
   {
     title: "Chocolate Sales Analysis",
@@ -131,7 +147,7 @@ function Card({ p, i }) {
         stiffness: 300,
         damping: 26,
       }}
-      whileHover={{ y: -4, scale: 1.012 }}
+      whileHover={{ rotateX: 2, rotateY: -2, scale: 1.015 }}
       style={{ transformStyle: "preserve-3d", height: "100%" }}
     >
       <div
@@ -229,7 +245,14 @@ function Card({ p, i }) {
 
         {p.feat && !isNew && (
           <motion.div
-            style={{}} /* ★ PERF: featured badge glow animation removed */
+            animate={{
+              boxShadow: [
+                "0 0 5px var(--accent-glow)",
+                "0 0 12px var(--accent-glow)",
+                "0 0 5px var(--accent-glow)",
+              ],
+            }}
+            transition={{ repeat: Infinity, duration: 2 }}
             style={{
               position: "absolute",
               top: 11,
@@ -250,7 +273,14 @@ function Card({ p, i }) {
         )}
         {p.feat && isNew && (
           <motion.div
-            style={{}} /* ★ PERF: featured badge glow animation removed */
+            animate={{
+              boxShadow: [
+                "0 0 5px var(--accent-glow)",
+                "0 0 12px var(--accent-glow)",
+                "0 0 5px var(--accent-glow)",
+              ],
+            }}
+            transition={{ repeat: Infinity, duration: 2 }}
             style={{
               position: "absolute",
               top: 11,
@@ -489,7 +519,7 @@ export default function Projects() {
           style={{ textAlign: "center", marginBottom: "clamp(32px,6vw,48px)" }}
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: false, margin: "-50px" }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="sec-eyebrow">
@@ -532,7 +562,7 @@ export default function Projects() {
           }}
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.55 }}
         >
           {TABS.map(({ id, label, Icon, data }) => (
@@ -612,7 +642,7 @@ export default function Projects() {
           style={{ textAlign: "center", marginTop: "clamp(28px,5vw,44px)" }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.55 }}
         >
           <a
