@@ -710,7 +710,7 @@ export default function Hero() {
             </div>
           ))}
           {/* Profile views — 5th stat */}
-          <div className="hst-item">
+          {/* <div className="hst-item">
             <div
               className={`grad-text vcnt`}
               style={{
@@ -735,7 +735,7 @@ export default function Hero() {
             >
               Profile Views
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

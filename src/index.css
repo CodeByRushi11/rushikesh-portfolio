@@ -138,6 +138,51 @@ body,
   outline-offset: 3px;
   border-radius: 3px;
 }
+
+/* ─── ACCESSIBILITY: Skip Link ───────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  font-weight: 500;
+  transition: top 0.3s;
+}
+.skip-link:focus {
+  top: 0;
+  outline: none;
+}
+
+/* ─── ACCESSIBILITY: Reduced Motion ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── ACCESSIBILITY: Touch Targets ───────────── */
+@media (pointer: coarse) {
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -156,6 +201,50 @@ body,
 ───────────────────────────────────────────────── */
 section {
   contain: layout style;
+}
+
+/* ─── MOBILE: Fix overflow for very small screens ─ */
+@media screen and (max-width: 319px) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  .container,
+  section > div {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* ─── BACKDROP-FILTER FALLBACK FOR SAFARI ────── */
+/* Safari < 14 doesn't support backdrop-filter */
+@supports not (backdrop-filter: blur(12px)) {
+  .glass,
+  .glass-heavy {
+    background: var(--glass-bg) !important;
+  }
+
+  .glass-heavy {
+    background: var(--surface) !important;
+  }
+
+  [data-theme="dark"] .glass,
+  [data-theme="dark"] .glass-heavy {
+    background: rgba(8, 8, 15, 0.95) !important;
+  }
+
+  [data-theme="light"] .glass,
+  [data-theme="light"] .glass-heavy {
+    background: rgba(244, 244, 250, 0.98) !important;
+  }
 }
 
 /* ─── KEYFRAMES — only what's actually used ─── */

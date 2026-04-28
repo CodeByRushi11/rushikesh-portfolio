@@ -12,12 +12,9 @@
       content="Rushikesh Ingole, Data Analyst, Business Intelligence, Power BI, Python, SQL, AI Analyst, Nagpur"
     />
     <meta name="author" content="Rushikesh Ingole" />
-    <meta property="og:title" content="Rushikesh Ingole | AI & BI Analyst" />
-    <meta
-      property="og:description"
-      content="Transforming raw data into strategic decisions."
-    />
     <meta name="theme-color" content="#0a0a0f" />
+
+    <!-- Open Graph -->
     <meta property="og:title" content="Rushikesh Ingole | AI & BI Analyst" />
     <meta
       property="og:description"
@@ -32,9 +29,29 @@
       content="https://rushikesh-dev-portfolio.netlify.app/"
     />
     <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:site_name" content="Rushikesh Ingole Portfolio" />
 
-    <!-- Premium font pairing -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rushikesh Ingole | AI & BI Analyst" />
+    <meta
+      name="twitter:description"
+      content="Transforming raw data into strategic decisions."
+    />
+    <meta
+      name="twitter:image"
+      content="https://rushikesh-dev-portfolio.netlify.app/preview.png"
+    />
+    <meta name="twitter:creator" content="@rushikesh_ingole" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://rushikesh-dev-portfolio.netlify.app/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -43,20 +60,72 @@
     />
 
     <title>Rushikesh Ingole | AI & BI Analyst</title>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rushikesh Ingole",
+        "url": "https://rushikesh-dev-portfolio.netlify.app",
+        "jobTitle": "AI & Business Intelligence Analyst",
+        "description": "AI & Business Intelligence Analyst transforming raw data into strategic decisions.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nagpur",
+          "addressCountry": "IN"
+        },
+        "email": "rushikeshingole467@gmail.com",
+        "telephone": "+918010688184",
+        "sameAs": [
+          "https://in.linkedin.com/in/rushikesh-ingole-b02052377",
+          "https://github.com/CodeByRushi11",
+          "https://www.instagram.com/rishiiii.i12"
+        ],
+        "knowsAbout": [
+          "Python",
+          "SQL",
+          "Power BI",
+          "Data Analysis",
+          "Business Intelligence",
+          "Machine Learning"
+        ]
+      }
+    </script>
+
+    <!-- Theme initialization - blocking script to prevent flash -->
     <script>
       (function () {
         try {
-          var t =
-            localStorage.getItem("ri-theme") ||
-            (window.matchMedia("(prefers-color-scheme: dark)").matches
+          var theme = localStorage.getItem("ri-theme");
+          if (!theme) {
+            theme = window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
-              : "light");
-          document.documentElement.setAttribute("data-theme", t);
+              : "light";
+          }
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.style.colorScheme = theme;
         } catch (e) {}
       })();
     </script>
+
+    <!-- No-JS fallback -->
+    <noscript>
+      <style>
+        :root {
+          --bg: #08080f;
+          --text: #eef0ff;
+        }
+        [data-theme="light"] {
+          --bg: #f4f4fa;
+          --text: #09091e;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

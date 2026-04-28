@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://rushikesh-dev-portfolio.netlify.app/sitemap.xml
+
+# Disallow sensitive paths
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*.jsx$

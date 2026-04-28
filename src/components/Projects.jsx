@@ -139,7 +139,8 @@ function Card({ p, i }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 28, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: false, margin: "-20px" }}
       exit={{ opacity: 0, y: -18, scale: 0.96 }}
       transition={{
         delay: i * 0.07,
